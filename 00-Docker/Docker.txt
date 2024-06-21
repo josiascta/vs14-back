@@ -23,6 +23,17 @@ docker rename <nome> <novo_nome>: Renomear o container.
 
 docker rm <container>: Remover o container.
 
+docker system prune: Remover redes, containeres, imagens ou volumes não utilizados.
+
+docker pause <nome>: Congelar os processos ativos de um container.
+
+docker unpause <nome>: Retomar os processos de containeres pausados.
+
+docker search --filter is-official=true <pesquisa>: Acessar as imagens de registro oficiais do Docker Hub sem visitar o site.
+
+docker push: Compartilhar imagens no registro do Docker Hub ou em um repositório privado.
+
 Referências: 
 
+https://kinsta.com/pt/blog/comandos-do-docker/#8-docker-push 
 https://drive.google.com/file/d/1XrAiiyJR0emaLqBtwBxx41lYAyKdl6np/view?usp=classroom_web&authuser=0
