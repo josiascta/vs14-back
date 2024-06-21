@@ -1,0 +1,28 @@
+Principais comandos do Docker:
+
+docker info: Ver informações detalhadas sobre o ambiente do docker que está
+em execução no sistema.
+
+docker version: Ver em qual versão o docker está.
+
+docker build -t getting-started .: Criar uma imagem do Docker.
+
+docker pull <imagem>: Baixar uma imagem.
+
+docker images: Ver as imagens baixadas.
+
+docker run -dp <portaEntrada>:<portaEntrada> <imagem>: Rodar uma imagem.
+
+docker rmi <imagem>: Remover uma imagem.
+
+docker ps: Listar todos os containers ativos.
+
+docker ps -a: Listar todos os containers, inclusive os que estão parados.
+
+docker rename <nome> <novo_nome>: Renomear o container.
+
+docker rm <container>: Remover o container.
+
+Referências: 
+
+https://drive.google.com/file/d/1XrAiiyJR0emaLqBtwBxx41lYAyKdl6np/view?usp=classroom_web&authuser=0
