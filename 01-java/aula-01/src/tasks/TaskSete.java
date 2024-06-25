@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*Escreva um programa em Java que solicite ao usuário a quantidade de alunos em uma
@@ -23,5 +25,22 @@ média.*/
 public class TaskSete {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        int quantidadeDeAlunos = Integer.parseInt(sc.nextLine());
+
+        List<Aluno> alunos = new ArrayList<>();
+        for (int i = 0; i < quantidadeDeAlunos; i++) {
+            String nome = sc.nextLine();
+            double nota1 = Double.parseDouble(sc.nextLine());
+            double nota2 = Double.parseDouble(sc.nextLine());
+            double nota3 = Double.parseDouble(sc.nextLine());
+
+            Aluno aluno = new Aluno(nome, nota1, nota2, nota3);
+            alunos.add(aluno);
+        }
+
+        for(Aluno aluno : alunos){
+            System.out.println(aluno);
+        }
     }
 }

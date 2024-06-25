@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*Você foi contratado para desenvolver um sistema simples para um e-commerce que
@@ -25,5 +27,48 @@ de cálculo de desconto.*/
 public class TaskOito {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        List<Produto> produtos = new ArrayList<Produto>();
+
+        boolean flag = true;
+        while(flag){
+            System.out.println("O que você deseja fazer: ");
+            System.out.println("1 - Cadastrar produto");
+            System.out.println("2 - Exibir detalhes do produto");
+            System.out.println("3 - Aplicar desconto em um produto");
+
+            int controle = Integer.parseInt(sc.nextLine());
+            int opcao = Integer.parseInt(sc.nextLine());
+            switch(controle){
+                case 1:
+                    String nome = sc.nextLine();
+                    double preco = sc.nextDouble();
+                    String descricao = sc.nextLine();
+                    int estoque = Integer.parseInt(sc.nextLine());
+
+                    Produto produto = new Produto(nome, descricao, preco, estoque);
+                    produtos.add(produto);
+                    break;
+                case 2:
+                    System.out.println("Escolha um produto para ver seus dados: ");
+                    for(int i = 0; i<produtos.size(); i++){
+                        System.out.println((i) + " - " + produtos.get(i).getNome());
+                    }
+                    opcao = Integer.parseInt(sc.nextLine());
+                    System.out.println(produtos.get(opcao));
+                    break;
+                case 3:
+                    System.out.println("Escolha um produto para aplicar desconto: ");
+                    for(int i = 0; i<produtos.size(); i++){
+                        System.out.println((i) + " - " + produtos.get(i).getNome());
+                    }
+                    opcao = Integer.parseInt(sc.nextLine());
+                    double porcentagemDeDesconto = Double.parseDouble(sc.nextLine());
+                    produtos.get(opcao).aplicarDesconto(porcentagemDeDesconto);
+                case 4:
+                    flag = false;
+            }
+
+        }
     }
 }
