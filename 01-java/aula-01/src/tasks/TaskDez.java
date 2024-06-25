@@ -91,6 +91,7 @@ public class TaskDez {
                     break;
                 case 0:
                     flag = false;
+                    break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
