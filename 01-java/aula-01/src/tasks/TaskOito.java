@@ -65,8 +65,10 @@ public class TaskOito {
                     opcao = Integer.parseInt(sc.nextLine());
                     double porcentagemDeDesconto = Double.parseDouble(sc.nextLine());
                     produtos.get(opcao).aplicarDesconto(porcentagemDeDesconto);
+                    break;
                 case 4:
                     flag = false;
+                    break;
             }
 
         }
