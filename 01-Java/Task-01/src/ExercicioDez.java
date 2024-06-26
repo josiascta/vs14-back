@@ -1,8 +1,6 @@
-package tasks;
-
 import java.util.Scanner;
 
-public class TaskDez {
+public class ExercicioDez {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;

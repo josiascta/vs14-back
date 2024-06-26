@@ -1,5 +1,3 @@
-package tasks;
-
 /*Desenvolva um programa em Java para registrar o número total de votos em um
 município, bem como o número de votos brancos, nulos e válidos. O programa deve
 calcular e exibir o percentual que cada tipo de voto representa em relação ao total de
@@ -7,7 +5,7 @@ eleitores.*/
 
 import java.util.Scanner;
 
-public class TaskCinco {
+public class ExercicioCinco {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

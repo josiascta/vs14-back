@@ -1,5 +1,3 @@
-package tasks;
-
 /*6. Desenvolva um programa em Java que solicite ao usuário as informações de um
 funcionário e calcule o salário anual desse funcionário. O programa deve utilizar a classe
 Scanner para ler os dados de entrada do usuário e não deve utilizar arrays ou laços de
@@ -14,7 +12,7 @@ v. O programa deve exibir o nome do funcionário e seu salário anual.*/
 
 import java.util.Scanner;
 
-public class TaskSeis {
+public class ExercicioSeis {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

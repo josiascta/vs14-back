@@ -1,5 +1,3 @@
-package tasks;
-
 /*Você foi contratado para criar um programa em Java que converta uma temperatura
 fornecida em graus Celsius para graus Fahrenheit. Utilize as fórmulas de conversão
 apropriadas para realizar essa tarefa. O programa deve declarar uma constante
@@ -8,7 +6,7 @@ calcular e exibir a correspondente temperatura em graus Fahrenheit.*/
 
 import java.util.Scanner;
 
-public class TaskTres {
+public class ExercicioTres {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Digite um valor em graus Celsius: ");

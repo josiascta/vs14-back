@@ -1,8 +1,3 @@
-package exercicio02;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /*Utilize um array para armazenar os nomes dos times da casa.
@@ -11,7 +6,7 @@ import java.util.Scanner;
  Utilize um array para armazenar as pontuações dos times visitantes.
          Utilize um array para armazenar as datas dos jogos.*/
 
-public class Main {
+public class ExercicioDois {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

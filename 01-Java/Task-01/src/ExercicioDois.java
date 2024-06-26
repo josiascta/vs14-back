@@ -1,5 +1,3 @@
-package tasks;
-
 import java.util.Scanner;
 
 /*Crie um programa em Java que valide se um número fornecido por um usuário é par ou
@@ -7,7 +5,7 @@ import java.util.Scanner;
 seguida, determinar se o número é par ou ímpar sem usar instruções if ou else. Exiba o
 resultado.*/
 
-public class TaskDois {
+public class ExercicioDois {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 

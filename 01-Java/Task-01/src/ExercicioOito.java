@@ -1,5 +1,3 @@
-package tasks;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +22,7 @@ k. O sistema deve ser implementado em Java, utilizando os conceitos de tipos de
 dados adequados para representar as informações dos produtos e as operações
 de cálculo de desconto.*/
 
-public class TaskOito {
+public class ExercicioOito {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

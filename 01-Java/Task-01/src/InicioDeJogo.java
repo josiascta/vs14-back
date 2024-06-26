@@ -1,25 +1,17 @@
-package tasks;
-
 import java.time.LocalDateTime;
 
-public class TerminoDeJogo {
+public class InicioDeJogo {
 
     private int horas;
     private int minutos;
-    private boolean proximoDia;
 
-    public TerminoDeJogo(int horas, int minutos, boolean proximoDia){
+    public InicioDeJogo(int horas, int minutos){
         this.horas = horas;
         this.minutos = minutos;
-        this.proximoDia = proximoDia;
     }
 
-    public LocalDateTime horarioDeTermino(){
+    public LocalDateTime horarioDeInicio(){
         LocalDateTime horario = LocalDateTime.now();
-        if(proximoDia){
-            horario = horario.plusDays(1);
-        }
         return LocalDateTime.of(horario.getYear(), horario.getMonth(), horario.getDayOfMonth(), horas, minutos);
-
     }
 }

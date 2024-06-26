@@ -1,8 +1,6 @@
-package tasks;
-
 import java.util.Scanner;
 
-public class TaskNove {
+public class ExercicioNove {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String palavra = sc.nextLine();

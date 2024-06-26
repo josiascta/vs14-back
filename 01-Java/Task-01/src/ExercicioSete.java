@@ -1,5 +1,3 @@
-package tasks;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +20,7 @@ viii. Após calcular a média, o programa deve exibir o nome do aluno e sua
 média.*/
 
 
-public class TaskSete {
+public class ExercicioSete {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
