@@ -17,13 +17,12 @@ public class GerenciadorBanco {
         boolean isFound = false;
         for (int i = 0; i < contas.size(); i++) {
             if (contas.get(i).getNumeroConta().equals(numeroConta)) {
-                if(buscarConta(numeroConta).getSaldo() == 0) {
+                if (buscarConta(numeroConta).getSaldo() == 0) {
                     contas.remove(i);
                     isFound = true;
                     System.out.println("Conta removida com sucesso!");
                     break;
-                }
-                else{
+                } else {
                     System.out.println("Impossível excluir a conta com saldo.");
                     isFound = true;
                 }
