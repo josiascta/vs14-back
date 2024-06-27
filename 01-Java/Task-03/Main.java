@@ -83,13 +83,16 @@ public class Main {
 
     }
     public static void ExibirMenu(){
-        System.out.println("-- Menu Banco --");
-        System.out.println("1. Criar conta");
-        System.out.println("2. Depositar na conta");
-        System.out.println("3. Realizar um saque");
-        System.out.println("4. Remover Conta");
-        System.out.println("5. Listar Contas");
-        System.out.println("6. Buscar uma conta");
-        System.out.println("7. Sair");
+        System.out.println(" ______________________");
+        System.out.println("|   -- Menu Banco --   |");
+        System.out.println("|----------------------|");
+        System.out.println("| 1. Criar conta       |");
+        System.out.println("| 2. Depositar na conta|");
+        System.out.println("| 3. Realizar um saque |");
+        System.out.println("| 4. Remover Conta     |");
+        System.out.println("| 5. Listar Contas     |");
+        System.out.println("| 6. Buscar uma conta  |");
+        System.out.println("| 7. Sair              |");
+        System.out.println("|______________________|");
     }
 }
