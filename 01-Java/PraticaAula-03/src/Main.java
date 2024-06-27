@@ -1,12 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        Colaborador colaborador = null;
-        Gerente gerente = null;
-        Diretor diretor = null;
+        List<Pessoal> pessoas = new ArrayList<>();
 
         boolean flag = true;
         while(flag) {
@@ -20,69 +20,47 @@ public class Main {
                     System.out.println("1 - Colaborador ");
                     System.out.println("2 - Diretor");
                     System.out.println("3 - Gerente");
+                    System.out.println("4 - RH");
                     opcao = Integer.parseInt(sc.nextLine());
+
+                    String nome = sc.nextLine();
+                    System.out.println("Digite a idade: ");
+                    int idade = Integer.parseInt(sc.nextLine());
+                    System.out.println();
+                    System.out.println("Digite o tempo de Casa: ");
+                    int tempoDeCasa = Integer.parseInt(sc.nextLine());
+                    System.out.println("Digite o salario atual: ");
+                    double salarioAtual = Double.parseDouble(sc.nextLine());
                     if(opcao == 1){
-                        System.out.println("Digite o nome do colaborador: ");
-                        String nome = sc.nextLine();
-                        System.out.println("Digite a idade: ");
-
-                        int idade = Integer.parseInt(sc.nextLine());
-                        System.out.println();
-                        System.out.println("Digite o tempo de Casa: ");
-                        int tempoDeCasa = Integer.parseInt(sc.nextLine());
-                        System.out.println("Digite o salario inicial: ");
+                        System.out.println("Qual o salário inicial: ");
                         double salarioInicial = Double.parseDouble(sc.nextLine());
-                        System.out.println("Digite o salario atual: ");
-                        double salarioAtual = Double.parseDouble(sc.nextLine());
 
-                        colaborador = new Colaborador(nome, idade, tempoDeCasa, salarioInicial, salarioAtual);
-
+                        Colaborador colaborador = new Colaborador(idade, tempoDeCasa, salarioAtual, nome, salarioInicial);
+                        pessoas.add(colaborador);
                     }else if(opcao == 2){
-                        System.out.println("Digite o nome do diretor: ");
-                        String nome = sc.nextLine();
-                        System.out.println("Digite a idade: ");
-
-                        int idade = Integer.parseInt(sc.nextLine());
-                        System.out.println("Digite o tempo de Casa: ");
-                        int tempoDeCasa = Integer.parseInt(sc.nextLine());
-                        System.out.println();
-                        System.out.println("Digite o tempo do cargo: ");
+                        System.out.println("Qual é o tempo de carga: ");
                         int tempoDeCargo = Integer.parseInt(sc.nextLine());
-                        System.out.println();
-                        System.out.println("Digite o salario: ");
-                        double salarioAtual = Double.parseDouble(sc.nextLine());
+                        Diretor diretor = new Diretor(idade, tempoDeCasa, salarioAtual, nome, tempoDeCargo);
 
-                        diretor = new Diretor(nome, idade, tempoDeCasa, tempoDeCargo, salarioAtual);
+                        pessoas.add(diretor);
                 }else if(opcao == 3){
-                        System.out.println("Digite o nome do gerente: ");
-                        String nome = sc.nextLine();
-                        System.out.println("Digite a idade: ");
-
-                        int idade = Integer.parseInt(sc.nextLine());
-                        System.out.println("Digite o tempo de Casa: ");
-                        int tempoDeCasa = Integer.parseInt(sc.nextLine());
-                        System.out.println("Digite o setor: ");
+                        System.out.println("Qual é o setor: ");
                         String setor = sc.nextLine();
-                        System.out.println("Digite o salario: ");
-                        double salario = Double.parseDouble(sc.nextLine());
-
-                        gerente = new Gerente(nome, idade, tempoDeCasa, setor, salario);
-
-                }
+                        Gerente gerente = new Gerente(idade, tempoDeCasa, salarioAtual, nome, setor);
+                        pessoas.add(gerente);
+                }else if(opcao == 4){
+                        System.out.println("É entrevistador? ");
+                        System.out.println("S ou N: ");
+                        boolean isEntrevistador = sc.nextLine().equals("sim");
+                        RH rh = new RH(idade, tempoDeCasa, salarioAtual, nome, isEntrevistador);
+                        pessoas.add(rh);
+                    }
                     else{
                         System.out.println("Não foi encontrado");
                     }
                     break;
                 case 2:
-                    if(colaborador != null && gerente != null && diretor != null){
-                        System.out.println(colaborador);
-                        System.out.println();
-                        System.out.println(gerente);
-                        System.out.println();
-                        System.out.println(diretor);
-                    }else{
-                        System.out.println("Cadastre os dados primeiro! ");
-                    }
+
 
             }
 

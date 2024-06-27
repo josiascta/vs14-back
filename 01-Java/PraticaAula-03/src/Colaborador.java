@@ -8,4 +8,9 @@ public class Colaborador extends Pessoal {
         this.salarioInicial = salarioInicial;
     }
 
+    @Override
+    public void mostrarInformacoes(){
+        super.mostrarInformacoes();
+        System.out.println("Salário inicial: " + salarioInicial);
+    }
 }

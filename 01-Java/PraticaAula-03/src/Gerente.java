@@ -7,4 +7,9 @@ public class Gerente extends Pessoal {
         this.setor = setor;
     }
 
+    @Override
+    public void mostrarInformacoes(){
+        super.mostrarInformacoes();
+        System.out.println("Setor: " + setor);
+    }
 }

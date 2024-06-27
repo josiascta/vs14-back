@@ -6,4 +6,10 @@ public class RH extends Pessoal{
         super(idade, tempoDeCasa, salarioAtual, nome);
         this.isEntrevistador = isEntrevistador;
     }
+
+    @Override
+    public void mostrarInformacoes(){
+        super.mostrarInformacoes();
+        System.out.println("É entrevistador: " + ((isEntrevistador) ? "Sim" : "Não"));
+    }
 }
