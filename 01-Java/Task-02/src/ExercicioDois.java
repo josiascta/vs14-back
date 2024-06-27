@@ -1,11 +1,5 @@
 import java.util.Scanner;
 
-/*Utilize um array para armazenar os nomes dos times da casa.
- Utilize outro array para armazenar os nomes dos times visitantes.
-         Utilize um array para armazenar as pontuações dos times da casa.
- Utilize um array para armazenar as pontuações dos times visitantes.
-         Utilize um array para armazenar as datas dos jogos.*/
-
 public class ExercicioDois {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -37,6 +31,11 @@ public class ExercicioDois {
                         System.out.print("Digite a pontuação do time da casa: ");
                         int pontuacaoDaCasa = Integer.parseInt(sc.nextLine());
 
+                        while(pontuacaoDaCasa < 0){
+                            System.out.print("Digite um valor maior ou igual a zero!");
+                            pontuacaoDaCasa = Integer.parseInt(sc.nextLine());
+                        }
+
                         boolean isRepetido = false;
                         for(int i = 0; i < quantTimes; i++) {
                             if (timesGerais[i][0].equalsIgnoreCase(timeDaCasa)) {
@@ -57,6 +56,11 @@ public class ExercicioDois {
 
                         System.out.print("Digite a pontuação do time visitante: ");
                         int pontuacaoDoVisitante = Integer.parseInt(sc.nextLine());
+
+                        while(pontuacaoDoVisitante < 0){
+                            System.out.print("Digite um valor maior ou igual a zero!");
+                            pontuacaoDoVisitante = Integer.parseInt(sc.nextLine());
+                        }
 
                         isRepetido = false;
                         for(int i = 0; i < quantTimes; i++) {
@@ -124,12 +128,26 @@ public class ExercicioDois {
                     }
                     break;
                 case 4:
-                    System.out.println("TimesCasa : Pontos");
+                    //Usando SelectionSort para ordenar a lista
+                    int n = quantTimes;
+
+                    for (int i = 0; i < n - 1; i++) {
+                        int maxIndex = i;
+                        for (int j = i + 1; j < n; j++) {
+                            if (Integer.parseInt(timesGerais[j][1]) > Integer.parseInt(timesGerais[maxIndex][1])) { // Modificação para ordem decrescente
+                                maxIndex = j;
+                            }
+                        }
+
+                        String[] temp = timesGerais[maxIndex];
+                        timesGerais[maxIndex] = timesGerais[i];
+                        timesGerais[i] = temp;
+                    }
+                    System.out.println("Ranking dos times: ");
                     for(int i = 0; i < quantTimes; i++){
                         System.out.print(timesGerais[i][0] + ": ");
                         System.out.println(timesGerais[i][1]);
                     }
-
                     break;
                 case 5:
                     flag = false;

@@ -1,9 +1,9 @@
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class GerenciadorBanco {
 
-    private List<ContaBancaria> contas = new ArrayList<ContaBancaria>();
+    private List<ContaBancaria> contas;
 
     public GerenciadorBanco(List<ContaBancaria> contas) {
         this.contas = contas;
