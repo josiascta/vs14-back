@@ -9,7 +9,7 @@ public class ContaBancaria {
     public ContaBancaria(String numeroConta, String titular, double saldo) {
         this.numeroConta = numeroConta;
         this.titular = titular;
-        this.saldo = saldo;
+        this.saldo = 0;
     }
 
     public String getNumeroConta() {
@@ -32,10 +32,6 @@ public class ContaBancaria {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
     public void depositar(double valor){
         this.saldo += valor;
     }
@@ -43,6 +39,10 @@ public class ContaBancaria {
     public void sacar(double valor){
         if(this.saldo >= valor){
             this.saldo -= valor;
+            System.out.println("Saque realizado com sucesso!");
+        }
+        else{
+            System.out.println("Saldo insuficiente");
         }
     }
 }

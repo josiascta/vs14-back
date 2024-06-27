@@ -19,6 +19,7 @@ public class GerenciadorBanco {
             if (contas.get(i).getNumeroConta().equals(numeroConta)) {
                 contas.remove(i);
                 isFound = true;
+                System.out.println("Conta removida com sucesso!");
                 break;
             }
         }
@@ -37,6 +38,7 @@ public class GerenciadorBanco {
     }
 
     public void listarContas() {
+        System.out.println("Listando todas as contas: ");
         for (ContaBancaria conta : contas) {
             System.out.println("Número conta: " + conta.getNumeroConta());
             System.out.println("Titular conta: " + conta.getTitular());
