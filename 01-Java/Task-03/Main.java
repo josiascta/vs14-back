@@ -67,10 +67,14 @@ public class Main {
                 case 6:
                     System.out.println("Digite o número da conta: ");
                     numeroConta = sc.nextLine();
-                    System.out.println("Numero da conta: " + gerenciadorBanco.buscarConta(numeroConta).getNumeroConta());
-                    System.out.println("Nome do titular da conta: " + gerenciadorBanco.buscarConta(numeroConta).getTitular());
-                    System.out.println("Saldo da conta: " + gerenciadorBanco.buscarConta(numeroConta).getSaldo());
-                    System.out.println();
+                    if(gerenciadorBanco.buscarConta(numeroConta) != null) {
+                        System.out.println("Numero da conta: " + gerenciadorBanco.buscarConta(numeroConta).getNumeroConta());
+                        System.out.println("Nome do titular da conta: " + gerenciadorBanco.buscarConta(numeroConta).getTitular());
+                        System.out.println("Saldo da conta: " + gerenciadorBanco.buscarConta(numeroConta).getSaldo());
+                        System.out.println();
+                    }else{
+                        System.out.println("Conta inexistente!");
+                    }
                     break;
                 case 7:
                     System.out.println("Saindo...");

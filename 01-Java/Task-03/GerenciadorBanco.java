@@ -17,10 +17,16 @@ public class GerenciadorBanco {
         boolean isFound = false;
         for (int i = 0; i < contas.size(); i++) {
             if (contas.get(i).getNumeroConta().equals(numeroConta)) {
-                contas.remove(i);
-                isFound = true;
-                System.out.println("Conta removida com sucesso!");
-                break;
+                if(buscarConta(numeroConta).getSaldo() == 0) {
+                    contas.remove(i);
+                    isFound = true;
+                    System.out.println("Conta removida com sucesso!");
+                    break;
+                }
+                else{
+                    System.out.println("Impossível excluir a conta com saldo.");
+                    isFound = true;
+                }
             }
         }
         if (!isFound) {
@@ -46,4 +52,5 @@ public class GerenciadorBanco {
             System.out.println();
         }
     }
+
 }
