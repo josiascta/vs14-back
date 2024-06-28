@@ -24,12 +24,21 @@ public class Main {
 
                     switch (opc) {
                         case 1:
-                            System.out.println("Digite o seu nome: ");
-                            String nomeCliente = sc.nextLine();
-                            System.out.println("Digite o seu e-mail: ");
-                            String emailCliente = sc.nextLine();
-                            cliente = new Cliente(nomeCliente, emailCliente);
-                            supermercado.cadastrarCliente(cliente);
+                            System.out.println("Você quer realizar o cadastro: ");
+                            char opcadastro = sc.nextLine().charAt(0);
+                            if(opcadastro == 'n'){
+                                cliente = new Cliente();
+                                supermercado.cadastrarCliente(cliente);
+                            }else if(opcadastro == 's') {
+                                System.out.println("Digite o seu nome: ");
+                                String nomeCliente = sc.nextLine();
+                                System.out.println("Digite o seu e-mail: ");
+                                String emailCliente = sc.nextLine();
+                                cliente = new Cliente(nomeCliente, emailCliente);
+                                supermercado.cadastrarCliente(cliente);
+                            }else{
+                                System.out.println("Digite sim ou não: ");
+                            }
                             break;
                         case 2:
                             System.out.println("TODOS OS PRODUTOS");
@@ -62,10 +71,10 @@ public class Main {
                             System.out.println("Compra finalizada com sucesso, escolha a opção 7 para ver o recibo!");
                             break;
                         case 7:
-                            if(cliente != null) {
                                 Recibo recibo = new Recibo(carrinho, cliente);
                                 recibo.gerarDadosDoRecibo();
-                            }
+                                carrinho = new Carrinho();
+                                flagCliente = false;
                             break;
                         case 8:
                             flagCliente = false;

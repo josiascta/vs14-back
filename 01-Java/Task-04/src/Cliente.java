@@ -8,6 +8,11 @@ public class Cliente {
         this.email = email;
     }
 
+    public Cliente() {
+        this.nome = "Visitante";
+        this.email = "desconhecido";
+    }
+
     public String getNome() {
         return nome;
     }
