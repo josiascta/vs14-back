@@ -33,7 +33,7 @@ public class Main {
                             break;
                         case 2:
                             System.out.println("TODOS OS PRODUTOS");
-                            supermercado.showAllProducts();
+                            supermercado.printarTodosProdutos();
                             break;
                         case 3:
                             System.out.print("Qual o nome do produto que deseja adicionar ao carrinho: ");
@@ -82,6 +82,7 @@ public class Main {
                             System.out.println("Cadastrar produto: ");
                             System.out.println("Nome produto: ");
                             String name = sc.nextLine();
+
                             System.out.println("Preço do produto: ");
                             double price = Double.parseDouble(sc.nextLine());
                             System.out.println("Quantidade em estoque: ");
@@ -91,7 +92,7 @@ public class Main {
                             break;
                         case 2:
                             System.out.println("Produtos: ");
-                            supermercado.showAllProducts();
+                            supermercado.printarTodosProdutos();
                             break;
                         case 3:
                             System.out.print("Qual produto você quer reabastecer? ");
