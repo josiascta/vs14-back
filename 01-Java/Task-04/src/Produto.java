@@ -33,4 +33,8 @@ public class Produto {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public void mostrarDetalhesProduto() {
+        System.out.print("Nome: " + nome + ", Preço: R$ " + preco + ", Qtd: " + quantidade);
+    }
 }

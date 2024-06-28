@@ -5,9 +5,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         Supermercado supermercado = new Supermercado();
+        Produto produto;
 
         boolean flag = true;
-        while(flag){
+        while (flag) {
             System.out.println("1. Cliente");
             System.out.println("2. Gerente");
             System.out.println("3. Sair ");
@@ -26,17 +27,17 @@ public class Main {
                         case 1:
                             System.out.println("Você quer realizar o cadastro: ");
                             char opcadastro = sc.nextLine().charAt(0);
-                            if(opcadastro == 'n'){
+                            if (opcadastro == 'n') {
                                 cliente = new Cliente();
                                 supermercado.cadastrarCliente(cliente);
-                            }else if(opcadastro == 's') {
+                            } else if (opcadastro == 's') {
                                 System.out.println("Digite o seu nome: ");
                                 String nomeCliente = sc.nextLine();
                                 System.out.println("Digite o seu e-mail: ");
                                 String emailCliente = sc.nextLine();
                                 cliente = new Cliente(nomeCliente, emailCliente);
                                 supermercado.cadastrarCliente(cliente);
-                            }else{
+                            } else {
                                 System.out.println("Digite sim ou não: ");
                             }
                             break;
@@ -65,22 +66,25 @@ public class Main {
                             System.out.println("Total do carrinho: R$ " + carrinho.generateTotalValue());
                             break;
                         case 6:
-                            for (Produto produto : carrinho.getProdutosNoCarrinho()){
-                                supermercado.removerProdutosDoEstoque(produto.getNome());
+                            for (Produto p : carrinho.getProdutosNoCarrinho()) {
+                                supermercado.removerProdutosDoEstoque(p.getNome());
                             }
                             System.out.println("Compra finalizada com sucesso, escolha a opção 7 para ver o recibo!");
                             break;
                         case 7:
-                                Recibo recibo = new Recibo(carrinho, cliente);
-                                recibo.gerarDadosDoRecibo();
-                                carrinho = new Carrinho();
-                                flagCliente = false;
+                            if(cliente == null) {
+                                cliente = new Cliente();
+                            }
+                            Recibo recibo = new Recibo(carrinho, cliente);
+                            recibo.gerarDadosDoRecibo();
+                            carrinho = new Carrinho();
+                            flagCliente = false;
                             break;
                         case 8:
                             flagCliente = false;
                     }
                 }
-            }else if(setor == 2) {
+            } else if (setor == 2) {
                 boolean flagGerente = true;
                 while (flagGerente) {
                     exibirMenuGerente();
@@ -89,15 +93,33 @@ public class Main {
                     switch (opc) {
                         case 1:
                             System.out.println("Cadastrar produto: ");
+                            System.out.println();
                             System.out.println("Nome produto: ");
-                            String name = sc.nextLine();
+                            String nome = sc.nextLine();
+                            System.out.println("Qual tipo do produto: (comida/bebida/indefinido)");
+                            String tipo = sc.nextLine();
 
                             System.out.println("Preço do produto: ");
-                            double price = Double.parseDouble(sc.nextLine());
+                            double preco = Double.parseDouble(sc.nextLine());
                             System.out.println("Quantidade em estoque: ");
-                            int qtInStock = Integer.parseInt(sc.nextLine());
-                            Produto product = new Produto(name, price, qtInStock);
-                            supermercado.cadastrarProduto(product);
+                            int qtdEstoque = Integer.parseInt(sc.nextLine());
+
+                            if (tipo.equalsIgnoreCase("comida")) {
+                                System.out.println("Digite a data de validade: ");
+                                String dataValidade = sc.nextLine();
+                                produto = new Comida(nome, preco, qtdEstoque, dataValidade);
+                                supermercado.cadastrarProduto(produto);
+                            } else if (tipo.equalsIgnoreCase("bebida")) {
+                                System.out.println("Digite o tipo de embalagem: ");
+                                String tipoEmbalagem = sc.nextLine();
+                                produto = new Bebida(nome, preco, qtdEstoque, tipoEmbalagem);
+                                supermercado.cadastrarProduto(produto);
+                            } else if(tipo.equalsIgnoreCase("indefinido")) {
+                                produto = new Produto(nome, preco, qtdEstoque);
+                                supermercado.cadastrarProduto(produto);
+                            } else {
+                                System.out.println("Digite uma opção válida.");
+                            }
                             break;
                         case 2:
                             System.out.println("Produtos: ");
@@ -120,11 +142,12 @@ public class Main {
             } else if (setor == 3) {
                 System.out.println("Saindo...");
                 flag = false;
-            }else {
+            } else {
                 System.out.println("Valor inválido!!");
             }
         }
     }
+
     public static void exibirMenuCliente() {
         System.out.println("Menu");
         System.out.println("1. Realizar Cadastro de cliente");
@@ -136,6 +159,7 @@ public class Main {
         System.out.println("7. Ver recibo");
         System.out.println("8. Sair");
     }
+
     public static void exibirMenuGerente() {
         System.out.println("Menu");
         System.out.println("1. Realizar Cadastro de produto");

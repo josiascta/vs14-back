@@ -57,8 +57,7 @@ public class Supermercado {
             return;
         }
         for (Produto p : produtos) {
-            System.out.println("Nome: " + p.getNome() + "Preço: R$ " + p.getPreco() + "Qtd: " + p.getQuantidade());
-            System.out.println();
+            p.mostrarDetalhesProduto();
         }
     }
 }

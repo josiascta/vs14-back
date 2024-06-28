@@ -1,0 +1,1 @@
+Obs: Fizemos todos juntos pelo Code With Me. Todos participaram da task.
