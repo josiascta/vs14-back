@@ -1,6 +1,6 @@
 --Task 02
 
-SELECT * FROM PAIS ORDER BY id_pais DESC;
+SELECT * FROM PAIS ORDER BY nome DESC;
 
 SELECT logradouro, cep FROM ENDERECO WHERE UPPER(SUBSTR(logradouro, 1, 1)) = 'A';
 
