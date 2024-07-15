@@ -1,7 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +38,7 @@ public class ContatoController {
         return contatoService.update(id, contatoAtualizar);
     }
 
-    @DeleteMapping("/{idContato}") // DELETE localhost:8080/pessoa/10
+    @DeleteMapping("/{idContato}") // DELETE localhost:8080/contato/10
     public void delete(@PathVariable("idContato") Integer id) {
         contatoService.delete(id);
     }
