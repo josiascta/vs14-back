@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
 public class Endereco {
+    private Integer idEndereco;
     private Integer idPessoa;
     private TipoEndereco tipo;
     private String logradouro;
@@ -10,6 +11,14 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String pais;
+
+    public Integer getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(Integer idEndereco) {
+        this.idEndereco = idEndereco;
+    }
 
     public Integer getIdPessoa() {
         return idPessoa;
