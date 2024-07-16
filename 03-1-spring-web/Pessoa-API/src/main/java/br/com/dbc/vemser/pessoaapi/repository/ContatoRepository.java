@@ -2,12 +2,14 @@ package br.com.dbc.vemser.pessoaapi.repository;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class ContatoRepository {
     private static List<Contato> listaContatos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
@@ -22,11 +24,9 @@ public class ContatoRepository {
         }
     }
 
-    public Contato create(Contato contato) {
-        Random random = new Random();
-        Integer pessoaId = random.nextInt(1, 6);
+    public Contato create(Contato contato, Integer id) {
         contato.setIdContato(COUNTER.incrementAndGet());
-        contato.setIdPessoa(pessoaId);
+        contato.setIdPessoa(id);
         listaContatos.add(contato);
         return contato;
     }

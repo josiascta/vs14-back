@@ -2,21 +2,25 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PessoaService {
 
-    private PessoaRepository pessoaRepository;
+    private final PessoaRepository pessoaRepository;
 
-    public PessoaService(){
-        pessoaRepository = new PessoaRepository();
+    public PessoaService(PessoaRepository pessoaRepository){
+        this.pessoaRepository = pessoaRepository;
     }
 
-    public Pessoa create(Pessoa pessoa){
-
-        // Validações
-
+    public Pessoa create(Pessoa pessoa) throws Exception {
+        if(pessoa != null && StringUtils.isBlank(pessoa.getNome()) && ObjectUtils.isEmpty(pessoa.getDataNascimento()) && StringUtils.length(pessoa.getCpf()) != 11){
+            throw new Exception("Erro: Nome em branco");
+        }
         return pessoaRepository.create(pessoa);
     }
 
