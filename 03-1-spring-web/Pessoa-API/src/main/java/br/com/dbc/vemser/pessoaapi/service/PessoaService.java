@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,15 +19,13 @@ public class PessoaService {
     }
 
     public Pessoa create(Pessoa pessoa) throws Exception {
-        if(pessoa != null && StringUtils.isBlank(pessoa.getNome()) && ObjectUtils.isEmpty(pessoa.getDataNascimento()) && StringUtils.length(pessoa.getCpf()) != 11){
-            throw new Exception("Erro: Nome em branco");
-        }
         return pessoaRepository.create(pessoa);
     }
 
     public List<Pessoa> list(){
         return pessoaRepository.list();
     }
+
 
     public Pessoa update(Integer id,
                          Pessoa pessoaAtualizar) throws Exception {
@@ -48,11 +47,11 @@ public class PessoaService {
         return pessoaRepository.listByName(nome);
     }
 
-    private Pessoa getPessoa(Integer id) throws Exception {
+    private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não encontrada!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
     }
 }
