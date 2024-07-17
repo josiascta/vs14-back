@@ -61,8 +61,7 @@ public class EnderecoRepository {
         return endereco;
     }
 
-    public void delete(int id) {
-        Endereco endereco = findById(id);
+    public void delete(Endereco endereco) {
         listaEnderecos.remove(endereco);
     }
 }

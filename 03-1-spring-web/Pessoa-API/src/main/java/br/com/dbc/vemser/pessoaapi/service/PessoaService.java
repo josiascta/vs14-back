@@ -47,7 +47,7 @@ public class PessoaService {
         return pessoaRepository.listByName(nome);
     }
 
-    private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
+    public Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()

@@ -1,15 +1,40 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Endereco {
     private Integer idEndereco;
+
     private Integer idPessoa;
+
+    @NotNull
     private TipoEndereco tipo;
+
+    @NotEmpty
+    @Size(min = 0, max = 250)
     private String logradouro;
+
+    @NotNull
     private Integer numero;
+
     private String complemento;
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 0, max = 8)
     private String cep;
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 0, max = 250)
     private String cidade;
+
+    @NotNull
     private String estado;
+
+    @NotNull
     private String pais;
 
     public Integer getIdEndereco() {

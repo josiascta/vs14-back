@@ -1,7 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -36,8 +38,7 @@ public class ContatoRepository {
     }
 
 
-    public void delete(Integer id) {
-        Contato contato = findById(id);
+    public void delete(Contato contato) {
         listaContatos.remove(contato);
     }
 
@@ -71,4 +72,5 @@ public class ContatoRepository {
         }
         return null;
     }
+
 }
