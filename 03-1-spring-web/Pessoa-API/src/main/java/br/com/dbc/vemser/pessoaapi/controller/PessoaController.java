@@ -1,8 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,14 @@ public class PessoaController {
 
     private final PessoaService pessoaService;
 
-    public PessoaController(PessoaService pessoaService) {
+    public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
         this.pessoaService = pessoaService;
     }
 
     @GetMapping("/hello") // GET localhost:8080/pessoa/hello
     public String hello() {
-        return "Hello world!";
+//        return "Hello world!" + propertieReader.getApp() + ": " + propertieReader.getAmbiente();
+        return "Hello World";
     }
 
     @GetMapping("/hello-2") // GET localhost:8080/pessoa/hello-2
@@ -53,7 +54,7 @@ public class PessoaController {
 
     @PutMapping("/{idPessoa}") // PUT localhost:8080/pessoa/1000
     public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
+                                            @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Editando uma pessoa...");
         return new ResponseEntity<>(pessoaService.update(id, pessoaAtualizar), HttpStatus.OK);
     }
