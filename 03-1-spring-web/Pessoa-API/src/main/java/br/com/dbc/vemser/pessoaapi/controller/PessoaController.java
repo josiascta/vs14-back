@@ -20,15 +20,16 @@ import java.util.List;
 public class PessoaController {
 
     private final PessoaService pessoaService;
+    private final PropertieReader propertieReader;
 
     public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
         this.pessoaService = pessoaService;
+        this.propertieReader = propertieReader;
     }
 
     @GetMapping("/hello") // GET localhost:8080/pessoa/hello
     public String hello() {
-//        return "Hello world!" + propertieReader.getApp() + ": " + propertieReader.getAmbiente();
-        return "Hello World";
+        return "Hello world!" + propertieReader.getApp() + ": " + propertieReader.getAmbiente();
     }
 
     @GetMapping("/hello-2") // GET localhost:8080/pessoa/hello-2
