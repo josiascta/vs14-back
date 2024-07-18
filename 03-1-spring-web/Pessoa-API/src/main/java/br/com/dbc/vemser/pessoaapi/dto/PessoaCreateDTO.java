@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.entity;
+package br.com.dbc.vemser.pessoaapi.dto;
 
 import lombok.*;
 
@@ -13,14 +13,20 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class Pessoa {
+public class PessoaCreateDTO {
 
-    private Integer idPessoa;
-
+    @NotNull
+    @NotEmpty
     private String nome;
 
+    @NotNull
+    @Past
     private LocalDate dataNascimento;
 
+    @NotNull
+    @NotEmpty
+    @Size(min = 11, max = 11)
     private String cpf;
+
 
 }

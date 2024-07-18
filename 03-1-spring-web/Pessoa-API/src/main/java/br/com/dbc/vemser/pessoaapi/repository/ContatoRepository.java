@@ -39,7 +39,12 @@ public class ContatoRepository {
 
 
     public void delete(Contato contato) {
-        listaContatos.remove(contato);
+        for (Contato c : listaContatos) {
+            if (c.getIdContato().intValue() == contato.getIdContato().intValue()) {
+                listaContatos.remove(c);
+                break;
+            }
+        }
     }
 
     public List<Contato> listByPersonId(int id) {

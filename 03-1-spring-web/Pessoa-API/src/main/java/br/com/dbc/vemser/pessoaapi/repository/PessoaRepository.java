@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -34,13 +35,17 @@ public class PessoaRepository {
         return listaPessoas;
     }
 
-//    public Pessoa update(Integer id,
-//                         Pessoa pessoaAtualizar) {
-//        pessoaAtualizar.setCpf(pessoaAtualizar.getCpf());
-//        pessoaAtualizar.setNome(pessoaAtualizar.getNome());
-//        pessoaAtualizar.setDataNascimento(pessoaAtualizar.getDataNascimento());
-//        return pessoaAtualizar;
-//    }
+    public Pessoa update(Integer id,
+                         Pessoa pessoaAtualizar)  {
+
+        Pessoa pessoaRecuperada = findById(id);
+
+        pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
+        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+
+        return pessoaRecuperada;
+    }
 
     public void delete(Pessoa pessoa) {
         listaPessoas.remove(pessoa);
@@ -51,4 +56,14 @@ public class PessoaRepository {
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                 .collect(Collectors.toList());
     }
+
+    public Pessoa findById(Integer id)  {
+        for(Pessoa p : listaPessoas) {
+            if(p.getIdPessoa().equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 }

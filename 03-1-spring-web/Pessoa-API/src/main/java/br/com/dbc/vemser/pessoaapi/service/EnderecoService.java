@@ -1,52 +1,79 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EnderecoService {
     private final EnderecoRepository enderecoRepository;
     private final PessoaService pessoaService;
+    private final ObjectMapper objectMapper;
 
-    public EnderecoService(EnderecoRepository enderecoRepository, PessoaService pessoaService) {
+    public EnderecoService(EnderecoRepository enderecoRepository, PessoaService pessoaService, ObjectMapper objectMapper) {
         this.enderecoRepository = enderecoRepository;
         this.pessoaService = pessoaService;
+        this.objectMapper = objectMapper;
     }
 
-    public List<Endereco> list() {
-        return enderecoRepository.list();
+    public List<EnderecoDTO> list() {
+        return enderecoRepository.list()
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Endereco findById(int id) {
-        return enderecoRepository.findById(id);
+    public EnderecoDTO findById(int id) throws Exception {
+        if(enderecoRepository.findById(id) == null){
+            throw new RegraDeNegocioException("Não existe um contato com esse ID");
+        }
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.findById(id), EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 
-    public List<Endereco> listByPersonId(int id) {
-        return enderecoRepository.listByPersonId(id);
+    public List<EnderecoDTO> listByPersonId(int id) {
+        return enderecoRepository.listByPersonId(id)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Endereco create(Endereco endereco, Integer id) throws Exception {
-        Pessoa pessoa = pessoaService.getPessoa(id);
-        if(pessoa == null) {
+    public EnderecoDTO create(EnderecoCreateDTO endereco, Integer id) throws Exception {
+        PessoaDTO pessoa = pessoaService.findById(id);
+        if (pessoa == null) {
             throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
         }
-        return enderecoRepository.create(endereco, id);
+        Endereco enderecoEntity = objectMapper.convertValue(endereco, Endereco.class);
+        enderecoEntity = enderecoRepository.create(enderecoEntity, id);
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+        return enderecoDTO;
     }
 
-    public Endereco update(int id, Endereco novosDados) throws Exception {
-        if(pessoaService.getPessoa(novosDados.getIdPessoa()) == null) {
+    public EnderecoDTO update(int id, EnderecoCreateDTO novosDados) throws Exception {
+        if (pessoaService.findById(novosDados.getIdPessoa()) == null) {
             throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
-        }else if(enderecoRepository.findById(id) == null) {
+        } else if (enderecoRepository.findById(id) == null) {
             throw new RegraDeNegocioException("Não existe contato com esse id");
         }
-        return enderecoRepository.update(id, novosDados);
+        Endereco enderecoEntity = objectMapper.convertValue(novosDados, Endereco.class);
+
+        enderecoEntity = enderecoRepository.update(id, enderecoEntity);
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 
     public void delete(int id) throws Exception {
