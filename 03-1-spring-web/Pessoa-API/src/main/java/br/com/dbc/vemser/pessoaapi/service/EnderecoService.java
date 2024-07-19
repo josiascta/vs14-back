@@ -57,7 +57,7 @@ public class EnderecoService {
         enderecoEntity = enderecoRepository.create(enderecoEntity, id);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(endereco.getIdPessoa()), enderecoDTO, "Criando um endereço", "email-template-post-endereco.ftl", "criado");
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Criando um endereço", "email-template-post-endereco.ftl", "criado");
 
         return enderecoDTO;
     }
