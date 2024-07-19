@@ -7,6 +7,7 @@ import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
-
-    public PessoaService(PessoaRepository pessoaRepository, ObjectMapper objectMapper){
-        this.pessoaRepository = pessoaRepository;
-        this.objectMapper = objectMapper;
-    }
+    private final EmailService emailService;
 
     public PessoaDTO create(PessoaCreateDTO dto) throws Exception {
 
         Pessoa pessoaEntity = objectMapper.convertValue(dto, Pessoa.class);
         pessoaEntity = pessoaRepository.create(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
+        emailService.sendEmail(pessoaDTO);
         return pessoaDTO;
     }
 

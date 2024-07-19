@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class PessoaCreateDTO {
 
     @NotNull
@@ -28,5 +27,5 @@ public class PessoaCreateDTO {
     @Size(min = 11, max = 11)
     private String cpf;
 
-
+    private String email;
 }

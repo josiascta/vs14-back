@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class EnderecoCreateDTO {
 
     private Integer idPessoa;

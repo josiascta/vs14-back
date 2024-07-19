@@ -3,7 +3,9 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.service.EmailService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +16,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa") // localhost:8080/pessoa
 @Validated
+@RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/pessoa") // localhost:8080/pessoa
 public class PessoaController {
 
     private final PessoaService pessoaService;
     private final PropertieReader propertieReader;
-
-    public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
-        this.pessoaService = pessoaService;
-        this.propertieReader = propertieReader;
-    }
 
     @GetMapping("/hello") // GET localhost:8080/pessoa/hello
     public String hello() {

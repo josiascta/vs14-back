@@ -10,23 +10,20 @@ import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class EnderecoService {
     private final EnderecoRepository enderecoRepository;
     private final PessoaService pessoaService;
     private final ObjectMapper objectMapper;
-
-    public EnderecoService(EnderecoRepository enderecoRepository, PessoaService pessoaService, ObjectMapper objectMapper) {
-        this.enderecoRepository = enderecoRepository;
-        this.pessoaService = pessoaService;
-        this.objectMapper = objectMapper;
-    }
+    private final EmailService emailService;
 
     public List<EnderecoDTO> list() {
         return enderecoRepository.list()
@@ -58,7 +55,10 @@ public class EnderecoService {
         }
         Endereco enderecoEntity = objectMapper.convertValue(endereco, Endereco.class);
         enderecoEntity = enderecoRepository.create(enderecoEntity, id);
+
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+        emailService.sendEmail(pessoaService.findById(endereco.getIdPessoa()), enderecoDTO, "Criando um endereço", "email-template-post-endereco.ftl", "criado");
+
         return enderecoDTO;
     }
 
@@ -72,12 +72,16 @@ public class EnderecoService {
 
         enderecoEntity = enderecoRepository.update(id, enderecoEntity);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Atualizando um endereço", "email-template-post-endereco.ftl", "atualizado");
 
         return enderecoDTO;
     }
 
     public void delete(int id) throws Exception {
         Endereco endereco = getEndereco(id);
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(endereco, EnderecoDTO.class);
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Deletando um endereço", "email-template-post-endereco.ftl", "deletado");
+
         enderecoRepository.delete(endereco);
     }
 
