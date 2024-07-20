@@ -85,10 +85,12 @@ public class EmailService {
         }
     }
 
-    public void sendEmail(PessoaDTO pessoaDto, EnderecoDTO enderecoDTO, String assunto, String templateEmail,  String modificacao) {
+    public void sendEmail(PessoaDTO pessoaDto, EnderecoDTO enderecoDTO, String assunto,  String modificacao) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+            String templateEmail = "email-template-post-endereco.ftl";
 
             mimeMessageHelper.setFrom(de);
             para = pessoaDto.getEmail();

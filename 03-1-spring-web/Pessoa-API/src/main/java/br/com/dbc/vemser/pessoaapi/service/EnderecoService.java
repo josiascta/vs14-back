@@ -57,7 +57,7 @@ public class EnderecoService {
         enderecoEntity = enderecoRepository.create(enderecoEntity, id);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Criando um endereço", "email-template-post-endereco.ftl", "criado");
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Criando um endereço", "criado");
 
         return enderecoDTO;
     }
@@ -72,7 +72,7 @@ public class EnderecoService {
 
         enderecoEntity = enderecoRepository.update(id, enderecoEntity);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Atualizando um endereço", "email-template-post-endereco.ftl", "atualizado");
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Atualizando um endereço", "atualizado");
 
         return enderecoDTO;
     }
@@ -80,7 +80,7 @@ public class EnderecoService {
     public void delete(int id) throws Exception {
         Endereco endereco = getEndereco(id);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(endereco, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Deletando um endereço", "email-template-post-endereco.ftl", "deletado");
+        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Deletando um endereço", "deletado");
 
         enderecoRepository.delete(endereco);
     }
