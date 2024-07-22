@@ -1,9 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.documentation.EnderecoControllerDoc;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Endereco;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequestMapping("/endereco")
 @Validated
 @Slf4j
-public class EnderecoController {
+public class EnderecoController implements EnderecoControllerDoc {
     private final EnderecoService enderecoService;
 
     public EnderecoController(EnderecoService enderecoService) {
