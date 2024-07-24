@@ -4,6 +4,7 @@ import br.com.dbc.vemser.pessoaapi.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -64,4 +66,19 @@ public class PessoaController implements PessoaControllerDoc {
         pessoaService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/periodo") //GET localhost:8080/pessoa/periodo?dataInicial=2023-01-01&dataFinal=2023-12-31
+    public ResponseEntity<List<PessoaDTO>> buscarPessoasPorPeriodo(
+            @RequestParam("dataInicial") LocalDate dataInicial,
+            @RequestParam("dataFinal") LocalDate dataFinal) {
+        return new ResponseEntity<>(pessoaService.buscarPessoasPorPeriodo(dataInicial, dataFinal), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/{cpf}")
+    public ResponseEntity<PessoaDTO> buscarPessoaPorCpf(
+            @PathVariable("cpf") String cpf) {
+        return new ResponseEntity<>(pessoaService.buscarPessoaCpf(cpf), HttpStatus.OK);
+    }
+
 }

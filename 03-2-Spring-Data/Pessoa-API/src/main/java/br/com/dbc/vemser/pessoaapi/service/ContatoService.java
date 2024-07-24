@@ -2,8 +2,11 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,12 +42,12 @@ public class ContatoService {
         return contatoDTO;
     }
 
-//    public List<ContatoDTO> listByPersonId(Integer id) {
-//        return contatoRepository.listByPersonId(id)
-//                .stream()
-//                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
-//                .collect(Collectors.toList());
-//    }
+    public List<ContatoDTO> listByPersonId(Integer id) {
+        return contatoRepository.findByIdPessoa(id)
+                .stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
+    }
 
     public List<ContatoDTO> list() {
         return contatoRepository.findAll()
@@ -88,5 +91,12 @@ public class ContatoService {
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
         return contatoRecuperado;
+    }
+
+    public List<ContatoDTO> buscarPorTipoContato(TipoContato tipoContato) {
+        return contatoRepository.findAllTipo(tipoContato)
+                .stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
     }
 }

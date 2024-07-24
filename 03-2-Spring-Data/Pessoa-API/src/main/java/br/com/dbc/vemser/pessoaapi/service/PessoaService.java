@@ -12,6 +12,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,18 @@ public class PessoaService {
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
     private final EmailService emailService;
+
+    public List<PessoaDTO> buscarPessoasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
+        return pessoaRepository.findByDataNascimentoBetween(dataInicial, dataFinal)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public PessoaDTO buscarPessoaCpf(String cpf) {
+        return objectMapper.convertValue(pessoaRepository.findByCpf(cpf), PessoaDTO.class);
+    }
+
 
     public PessoaDTO create(PessoaCreateDTO dto) throws Exception {
 

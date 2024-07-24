@@ -7,6 +7,7 @@ import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,12 +39,12 @@ public class EnderecoService {
         return enderecoDTO;
     }
 
-//    public List<EnderecoDTO> listByPersonId(int id) {
-//        return enderecoRepository.listByPersonId(id)
-//                .stream()
-//                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
-//                .collect(Collectors.toList());
-//    }
+    public List<EnderecoDTO> listByPersonId(int id) {
+        return enderecoRepository.findByIdPessoa(id)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
+    }
 
     public EnderecoDTO create(EnderecoCreateDTO endereco, Integer id) throws Exception {
         PessoaDTO pessoa = pessoaService.findById(id);
@@ -95,5 +96,33 @@ public class EnderecoService {
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
         return enderecoRecuperado;
+    }
+
+    public List<EnderecoDTO> buscarPorTipoEndereco(TipoEndereco tipoEndereco) {
+        return enderecoRepository.findAllTipo(tipoEndereco)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<EnderecoDTO> buscarPorCep(String cep) {
+        return enderecoRepository.findByCep(cep)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<EnderecoDTO> buscarPorCidadeEEstado(String cidade, String estado) {
+        return enderecoRepository.findByCidadeAndEstado(cidade, estado)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<EnderecoDTO> buscarPorPais(String pais) {
+        return enderecoRepository.findByPais(pais)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 }
