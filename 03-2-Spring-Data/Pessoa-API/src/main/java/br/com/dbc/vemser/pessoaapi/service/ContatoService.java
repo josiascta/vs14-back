@@ -92,8 +92,8 @@ public class ContatoService {
         return contatoRecuperado;
     }
 
-    public List<ContatoDTO> buscarPorTipoContato(TipoContato tipoContato) {
-        return contatoRepository.findAllTipo(tipoContato)
+    public List<ContatoDTO> buscarPorTipoContato(Integer tipoContato) {
+        return contatoRepository.findByTipoContato(TipoContato.ofTipo(tipoContato))
                 .stream()
                 .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
                 .collect(Collectors.toList());

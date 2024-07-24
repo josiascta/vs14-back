@@ -12,7 +12,7 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
 
     List<Endereco> findByIdPessoa(Integer pessoaId);
 
-    List<Endereco> findAllTipo(TipoEndereco tipoEndereco);
+    List<Endereco> findByTipoEndereco(TipoEndereco tipoEndereco);
 
     List<Endereco> findByCep(String cep);
 

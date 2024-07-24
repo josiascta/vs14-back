@@ -12,7 +12,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Integer> {
 
     List<Contato> findByIdPessoa(Integer pessoaId);
 
-    List<Contato> findAllTipo(TipoContato tipoContato);
+    List<Contato> findByTipoContato(TipoContato tipoContato);
 
 
 }

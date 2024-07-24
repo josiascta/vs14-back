@@ -24,7 +24,8 @@ public class Endereco {
     private Integer idPessoa;
 
     @Column(name = "tipo")
-    private TipoEndereco tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoEndereco tipoEndereco;
 
     @Column(name = "logradouro")
     private String logradouro;

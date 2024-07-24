@@ -58,7 +58,7 @@ public class ContatoController implements ContatoControllerDoc {
     }
 
     @GetMapping("{tipo}")
-    public ResponseEntity<List<ContatoDTO>> buscarPorTipoContato(@PathVariable(value = "tipo") TipoContato tipoContato) {
+    public ResponseEntity<List<ContatoDTO>> buscarPorTipoContato(@PathVariable(value = "tipo") Integer tipoContato) {
         return new ResponseEntity<>( contatoService.buscarPorTipoContato(tipoContato), HttpStatus.OK);
     }
 }

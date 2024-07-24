@@ -61,7 +61,7 @@ public class EnderecoController implements EnderecoControllerDoc {
     }
 
     @GetMapping("{tipo}")
-    public ResponseEntity<List<EnderecoDTO>> buscarPorTipoEndereco(@PathVariable(value = "tipo") TipoEndereco tipoEndereco) {
+    public ResponseEntity<List<EnderecoDTO>> buscarPorTipoEndereco(@PathVariable(value = "tipo") Integer tipoEndereco) {
         return new ResponseEntity<>( enderecoService.buscarPorTipoEndereco(tipoEndereco), HttpStatus.OK);
     }
 

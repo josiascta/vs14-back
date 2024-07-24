@@ -98,8 +98,8 @@ public class EnderecoService {
         return enderecoRecuperado;
     }
 
-    public List<EnderecoDTO> buscarPorTipoEndereco(TipoEndereco tipoEndereco) {
-        return enderecoRepository.findAllTipo(tipoEndereco)
+    public List<EnderecoDTO> buscarPorTipoEndereco(Integer tipoEndereco) {
+        return enderecoRepository.findByTipoEndereco(TipoEndereco.ofTipo(tipoEndereco))
                 .stream()
                 .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
                 .collect(Collectors.toList());
