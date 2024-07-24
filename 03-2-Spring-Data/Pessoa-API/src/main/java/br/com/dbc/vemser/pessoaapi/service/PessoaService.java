@@ -63,7 +63,6 @@ public class PessoaService {
         pessoaEntity.setCpf(pessoaAtualizar.getCpf());
         pessoaRepository.save(pessoaEntity);
 
-//        pessoaEntity = pessoaRepository.update(id, pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
         return pessoaDTO;
     }
@@ -80,7 +79,6 @@ public class PessoaService {
                 .collect(Collectors.toList());
     }
 
-    //Retornar um DTO para controller
     public PessoaDTO findById(Integer id) throws Exception {
         return objectMapper.convertValue(getPessoa(id), PessoaDTO.class);
     }

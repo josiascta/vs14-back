@@ -27,47 +27,47 @@ public class PessoaController implements PessoaControllerDoc {
     private final PessoaService pessoaService;
     private final PropertieReader propertieReader;
 
-    @GetMapping("/hello") // GET localhost:8080/pessoa/hello
+    @GetMapping("/hello")
     public String hello() {
         return "Hello world!" + propertieReader.getApp() + ": " + propertieReader.getAmbiente();
     }
 
-    @GetMapping("/hello-2") // GET localhost:8080/pessoa/hello-2
+    @GetMapping("/hello-2")
     public String hello2() {
         return "Hello world 2!";
     }
 
-    @GetMapping // GET localhost:8080/pessoa
+    @GetMapping
     public ResponseEntity<List<PessoaDTO>> list() {
         return new ResponseEntity<>(pessoaService.list(), HttpStatus.OK);
     }
 
-    @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
+    @GetMapping("/byname")
     public List<PessoaDTO> listByName(@RequestParam(value = "nome") String nome) {
         return pessoaService.listByName(nome);
     }
 
-    @PostMapping // POST localhost:8080/pessoa
+    @PostMapping
     public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {
         log.info("Criando uma nova pessoa...");
         return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.OK);
     }
 
-    @PutMapping("/{idPessoa}") // PUT localhost:8080/pessoa/1000
+    @PutMapping("/{idPessoa}")
     public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
                                             @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Editando uma pessoa...");
         return new ResponseEntity<>(pessoaService.update(id, pessoaAtualizar), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{idPessoa}") // DELETE localhost:8080/pessoa/10
+    @DeleteMapping("/{idPessoa}")
     public ResponseEntity<Void> delete(@PathVariable("idPessoa") Integer id) throws Exception {
         log.info("Deletando uma pessoa...");
         pessoaService.delete(id);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/periodo") //GET localhost:8080/pessoa/periodo?dataInicial=2023-01-01&dataFinal=2023-12-31
+    @GetMapping("/periodo")
     public ResponseEntity<List<PessoaDTO>> buscarPessoasPorPeriodo(
             @RequestParam("dataInicial") LocalDate dataInicial,
             @RequestParam("dataFinal") LocalDate dataFinal) {

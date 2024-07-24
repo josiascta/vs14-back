@@ -70,7 +70,6 @@ public class ContatoService {
         }
         Contato contatoEntity = objectMapper.convertValue(contatoCreateDTO, Contato.class);
 
-//        contatoEntity = contatoRepository.(id, contatoEntity);
         contatoEntity.setTipoContato(contatoCreateDTO.getTipoContato());
         contatoEntity.setDescricao(contatoCreateDTO.getDescricao());
         contatoEntity.setIdPessoa(contatoCreateDTO.getIdPessoa());

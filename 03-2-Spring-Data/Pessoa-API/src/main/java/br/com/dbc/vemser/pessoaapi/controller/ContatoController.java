@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-//Ajeitar o Post de contato
-
 @RestController
-@RequestMapping("/contato") // localhost:8080/contato
+@RequestMapping("/contato")
 @Validated
 @Slf4j
 public class ContatoController implements ContatoControllerDoc {

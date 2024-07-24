@@ -53,7 +53,7 @@ public class EnderecoController implements EnderecoControllerDoc {
         return new ResponseEntity<>(enderecoService.update(id, enderecoAtualizar), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}") // DELETE localhost:8080/pessoa/10
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) throws Exception {
         log.info("Deletando um endereço...");
         enderecoService.delete(id);
