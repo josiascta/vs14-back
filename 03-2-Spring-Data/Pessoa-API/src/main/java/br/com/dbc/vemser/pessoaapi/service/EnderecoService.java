@@ -39,24 +39,24 @@ public class EnderecoService {
         return enderecoDTO;
     }
 
-    public List<EnderecoDTO> listByPersonId(int id) {
-        return enderecoRepository.findByIdPessoa(id)
-                .stream()
-                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
-                .collect(Collectors.toList());
-    }
+//    public List<EnderecoDTO> listByPersonId(int id) {
+//        return enderecoRepository.findByIdPessoa(id)
+//                .stream()
+//                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+//                .collect(Collectors.toList());
+//    }
 
-    public EnderecoDTO create(EnderecoCreateDTO endereco, Integer id) throws Exception {
-        PessoaDTO pessoa = pessoaService.findById(id);
-        if (pessoa == null) {
-            throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
-        }
+    public EnderecoDTO create(EnderecoCreateDTO endereco) throws Exception {
+//        PessoaDTO pessoa = pessoaService.findById(id);
+//        if (pessoa == null) {
+//            throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
+//        }
         Endereco enderecoEntity = objectMapper.convertValue(endereco, Endereco.class);
-        enderecoEntity.setIdPessoa(id);
+
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Criando um endereço", "criado");
+//        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Criando um endereço", "criado");
 
         return enderecoDTO;
     }
@@ -77,15 +77,15 @@ public class EnderecoService {
         enderecoRepository.save(enderecoEntity);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Atualizando um endereço", "atualizado");
+//        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Atualizando um endereço", "atualizado");
 
         return enderecoDTO;
     }
 
     public void delete(int id) throws Exception {
         Endereco endereco = getEndereco(id);
-        EnderecoDTO enderecoDTO = objectMapper.convertValue(endereco, EnderecoDTO.class);
-        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Deletando um endereço", "deletado");
+//        EnderecoDTO enderecoDTO = objectMapper.convertValue(endereco, EnderecoDTO.class);
+//        emailService.sendEmail(pessoaService.findById(enderecoDTO.getIdPessoa()), enderecoDTO, "Deletando um endereço", "deletado");
 
         enderecoRepository.delete(endereco);
     }

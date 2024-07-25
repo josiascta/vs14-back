@@ -5,10 +5,12 @@ import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
 import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,27 +25,31 @@ public class ContatoService {
     private final ContatoRepository contatoRepository;
     private final PessoaService pessoaService;
     private final ObjectMapper objectMapper;
+    private final PessoaRepository pessoaRepository;
 
-    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService, ObjectMapper objectMapper) {
+    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService, ObjectMapper objectMapper, PessoaRepository pessoaRepository) {
         this.contatoRepository = contatoRepository;
         this.pessoaService = pessoaService;
         this.objectMapper = objectMapper;
+        this.pessoaRepository = pessoaRepository;
     }
 
     public ContatoDTO create(ContatoCreateDTO contatoCreateDTO, Integer idPessoa) throws Exception {
-        PessoaDTO pessoa = pessoaService.findById(idPessoa);
+        Pessoa pessoa = objectMapper.convertValue( pessoaService.findById(idPessoa), Pessoa.class);
+
         if(pessoa == null) {
             throw new RegraDeNegocioException("Não existe pessoa com id: " + idPessoa);
         }
         Contato contatoEntity = objectMapper.convertValue(contatoCreateDTO, Contato.class);
-        contatoEntity.setIdPessoa(idPessoa);
+        contatoEntity.setPessoa(pessoa);
         contatoEntity = contatoRepository.save(contatoEntity);
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntity, ContatoDTO.class);
         return contatoDTO;
     }
 
-    public List<ContatoDTO> listByPersonId(Integer id) {
-        return contatoRepository.findByIdPessoa(id)
+    public List<ContatoDTO> listByPersonId(Integer id) throws Exception {
+        Pessoa pessoa = objectMapper.convertValue(pessoaService.findById(id), Pessoa.class);
+        return contatoRepository.findByPessoa(pessoa)
                 .stream()
                 .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
                 .collect(Collectors.toList());
@@ -68,11 +74,14 @@ public class ContatoService {
         }else if(findById(id) == null) {
             throw new RegraDeNegocioException("Não existe contato com esse id");
         }
+        Pessoa pessoa = objectMapper.convertValue( pessoaService.findById(contatoCreateDTO.getIdPessoa()), Pessoa.class);
+
+
         Contato contatoEntity = objectMapper.convertValue(contatoCreateDTO, Contato.class);
 
         contatoEntity.setTipoContato(contatoCreateDTO.getTipoContato());
         contatoEntity.setDescricao(contatoCreateDTO.getDescricao());
-        contatoEntity.setIdPessoa(contatoCreateDTO.getIdPessoa());
+        contatoEntity.setPessoa(pessoa);
         contatoEntity.setNumero(contatoCreateDTO.getNumero());
         contatoEntity = contatoRepository.save(contatoEntity);
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntity, ContatoDTO.class);

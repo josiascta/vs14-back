@@ -3,9 +3,6 @@ package br.com.dbc.vemser.pessoaapi.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,11 +17,7 @@ public class Endereco {
     @Column(name = "id_endereco")
     private Integer idEndereco;
 
-    @Column(name = "id_pessoa")
-    private Integer idPessoa;
-
     @Column(name = "tipo")
-    @Enumerated(EnumType.STRING)
     private TipoEndereco tipoEndereco;
 
     @Column(name = "logradouro")

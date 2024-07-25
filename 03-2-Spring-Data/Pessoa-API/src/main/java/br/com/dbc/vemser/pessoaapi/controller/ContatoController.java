@@ -3,7 +3,6 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.documentation.ContatoControllerDoc;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,7 @@ public class ContatoController implements ContatoControllerDoc {
     }
 
     @GetMapping("pessoa/{id}")
-    public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id) {
+    public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id) throws Exception {
         return contatoService.listByPersonId(id);
     }
 
@@ -61,4 +60,5 @@ public class ContatoController implements ContatoControllerDoc {
     public ResponseEntity<List<ContatoDTO>> buscarPorTipoContato(@PathVariable(value = "tipo") Integer tipoContato) {
         return new ResponseEntity<>( contatoService.buscarPorTipoContato(tipoContato), HttpStatus.OK);
     }
+
 }

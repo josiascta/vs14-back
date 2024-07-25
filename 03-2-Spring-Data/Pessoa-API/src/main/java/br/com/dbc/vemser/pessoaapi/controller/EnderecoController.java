@@ -31,7 +31,7 @@ public class EnderecoController implements EnderecoControllerDoc {
 
     @GetMapping("pessoa/{id}")
     public List<EnderecoDTO> listByPersonId(@PathVariable(value = "id") Integer id) {
-        return enderecoService.listByPersonId(id);
+        return List.of();
     }
 
     @GetMapping("{id}")
@@ -43,7 +43,7 @@ public class EnderecoController implements EnderecoControllerDoc {
     public ResponseEntity<EnderecoDTO> create(@PathVariable("id") Integer id,
                                          @Valid @RequestBody EnderecoCreateDTO endereco) throws Exception {
         log.info("Criando um novo endereço...");
-        return new ResponseEntity<>(enderecoService.create(endereco, id), HttpStatus.OK);
+        return new ResponseEntity<>(enderecoService.create(endereco), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
@@ -60,17 +60,17 @@ public class EnderecoController implements EnderecoControllerDoc {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("{tipo}")
+    @GetMapping("/tipo/{tipo}")
     public ResponseEntity<List<EnderecoDTO>> buscarPorTipoEndereco(@PathVariable(value = "tipo") Integer tipoEndereco) {
         return new ResponseEntity<>( enderecoService.buscarPorTipoEndereco(tipoEndereco), HttpStatus.OK);
     }
 
-    @GetMapping("{cep}")
+    @GetMapping("/cep/{cep}")
     public ResponseEntity<List<EnderecoDTO>> buscarPorCep(@PathVariable(value = "cep") String cep) {
         return new ResponseEntity<>( enderecoService.buscarPorCep(cep), HttpStatus.OK);
     }
 
-    @GetMapping("{pais}")
+    @GetMapping("/pais/{pais}")
     public ResponseEntity<List<EnderecoDTO>> buscarPorPais(@PathVariable(value = "pais") String pais) {
         return new ResponseEntity<>( enderecoService.buscarPorPais(pais), HttpStatus.OK);
     }

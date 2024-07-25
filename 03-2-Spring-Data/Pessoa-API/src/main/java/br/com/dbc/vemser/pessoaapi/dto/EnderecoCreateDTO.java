@@ -16,7 +16,7 @@ public class EnderecoCreateDTO {
     private Integer idPessoa;
 
     @NotNull
-    private TipoEndereco tipo;
+    private TipoEndereco tipoEndereco;
 
     @NotEmpty
     @Size(min = 0, max = 250)

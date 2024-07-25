@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,4 +35,6 @@ public class Pessoa {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(mappedBy = "pessoa")
+    private Set<Contato> contatos;
 }

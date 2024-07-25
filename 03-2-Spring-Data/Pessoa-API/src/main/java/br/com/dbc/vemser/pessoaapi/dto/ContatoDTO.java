@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
+import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
 import lombok.*;
 
@@ -11,11 +12,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class ContatoDTO {
     private Integer idContato;
 
-    private Integer idPessoa;
+    private Pessoa pessoa;
 
     @NotNull
     private TipoContato tipoContato;

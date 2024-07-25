@@ -85,6 +85,8 @@ public class PessoaService {
 
 
     private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
+
+
         Pessoa pessoaRecuperada = pessoaRepository.findAll().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()

@@ -67,11 +67,14 @@ public class PessoaController implements PessoaControllerDoc {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/periodo")
+    @GetMapping("/p")
     public ResponseEntity<List<PessoaDTO>> buscarPessoasPorPeriodo(
-            @RequestParam("dataInicial") LocalDate dataInicial,
-            @RequestParam("dataFinal") LocalDate dataFinal) {
-        return new ResponseEntity<>(pessoaService.buscarPessoasPorPeriodo(dataInicial, dataFinal), HttpStatus.OK);
+            @RequestParam("dataInicial") String dataInicial,
+            @RequestParam("dataFinal") String dataFinal) {
+        LocalDate dataInicialLocalDate = LocalDate.parse(dataInicial);
+        LocalDate dataFinalLocalDate = LocalDate.parse(dataFinal);
+
+        return new ResponseEntity<>(pessoaService.buscarPessoasPorPeriodo(dataInicialLocalDate, dataFinalLocalDate), HttpStatus.OK);
 
     }
 

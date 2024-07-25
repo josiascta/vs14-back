@@ -36,7 +36,7 @@ public interface ContatoControllerDoc {
             }
     )
     @GetMapping("pessoa/{id}")
-    public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id);
+    public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id) throws Exception;
 
 
     @Operation(summary = "Cria um contato", description = "Cria um contato")
