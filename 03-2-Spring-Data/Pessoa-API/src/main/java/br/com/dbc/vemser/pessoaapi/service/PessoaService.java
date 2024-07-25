@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,14 +99,73 @@ public class PessoaService {
         return pessoaRecuperada;
     }
 
-//    public List<PessoaDTO> listPessoaComEndereco(Integer idEPessoa) throws Exception {
-//        List<PessoaDTO> pessoaDTOS;
-//        if (getPessoa(idEPessoa) != null) {
-//            if(getPessoa(idEPessoa).getEnderecos().isEmpty()) {
-//                pessoaDTOS.add()
-//            }
-//        }
-//
-//    }
+    public List<PessoaDTO> listPessoaComEndereco(Integer idEPessoa) throws Exception {
+        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+        if(idEPessoa != null) {
+            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+
+            if (pessoaRecuperada.getIdPessoa() != null) {
+                pessoaDTOS.add(pessoaRecuperada);
+                pessoaDTOS.get(0).setEnderecos(getPessoa(idEPessoa).getEnderecos());
+            }
+        }else {
+            pessoaDTOS = pessoaRepository.findAll()
+                    .stream()
+                    .map(pessoa ->
+                    {
+                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        p.setEnderecos(pessoa.getEnderecos());
+                        return p;
+                    })
+                    .collect(Collectors.toList());
+        }
+        return pessoaDTOS;
+    }
+
+    public List<PessoaDTO> listPessoaComContato(Integer idEPessoa) throws Exception {
+        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+        if(idEPessoa != null) {
+            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+
+            if (pessoaRecuperada.getIdPessoa() != null) {
+                pessoaDTOS.add(pessoaRecuperada);
+                pessoaDTOS.get(0).setContatos(getPessoa(idEPessoa).getContatos());
+            }
+        }else {
+            pessoaDTOS = pessoaRepository.findAll()
+                    .stream()
+                    .map(pessoa ->
+                    {
+                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        p.setContatos(pessoa.getContatos());
+                        return p;
+                    })
+                    .collect(Collectors.toList());
+        }
+        return pessoaDTOS;
+    }
+
+    public List<PessoaDTO> listPessoaComPet(Integer idEPessoa) throws Exception {
+        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+        if(idEPessoa != null) {
+            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+
+            if (pessoaRecuperada.getIdPessoa() != null) {
+                pessoaDTOS.add(pessoaRecuperada);
+                pessoaDTOS.get(0).setPets(getPessoa(idEPessoa).getPets());
+            }
+        }else {
+            pessoaDTOS = pessoaRepository.findAll()
+                    .stream()
+                    .map(pessoa ->
+                    {
+                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        p.setPets(pessoa.getPets());
+                        return p;
+                    })
+                    .collect(Collectors.toList());
+        }
+        return pessoaDTOS;
+    }
 }
 

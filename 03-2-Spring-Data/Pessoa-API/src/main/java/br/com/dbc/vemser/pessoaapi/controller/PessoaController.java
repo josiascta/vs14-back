@@ -83,5 +83,18 @@ public class PessoaController implements PessoaControllerDoc {
         return new ResponseEntity<>(pessoaService.buscarPessoaCpf(cpf), HttpStatus.OK);
     }
 
+    @RequestMapping("/com-enderecos")
+    public ResponseEntity<List<PessoaDTO>> comEndereco(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+        return new ResponseEntity<>(pessoaService.listPessoaComEndereco(id_pessoa), HttpStatus.OK);
+    }
 
+    @RequestMapping("/com-contatos")
+    public ResponseEntity<List<PessoaDTO>> comContatos(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+        return new ResponseEntity<>(pessoaService.listPessoaComContato(id_pessoa), HttpStatus.OK);
+    }
+
+    @RequestMapping("/com-pets")
+    public ResponseEntity<List<PessoaDTO>> comPets(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+        return new ResponseEntity<>(pessoaService.listPessoaComPet(id_pessoa), HttpStatus.OK);
+    }
 }
