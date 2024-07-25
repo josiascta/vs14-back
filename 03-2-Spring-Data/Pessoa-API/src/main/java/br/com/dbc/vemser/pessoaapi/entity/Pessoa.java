@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +36,17 @@ public class Pessoa {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Contato> contatos;
+
+    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Pet> pets;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PESSOA_X_ENDERECO",
+            joinColumns = @JoinColumn(name = "id_pessoa"),
+            inverseJoinColumns = @JoinColumn(name = "id_endereco")
+    )
+    private Set<Endereco> enderecos;
 }

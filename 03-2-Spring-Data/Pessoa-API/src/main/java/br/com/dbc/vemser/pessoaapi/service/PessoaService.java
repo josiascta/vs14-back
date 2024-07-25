@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
@@ -8,8 +7,6 @@ import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -48,7 +45,14 @@ public class PessoaService {
     public List<PessoaDTO> list() {
         return pessoaRepository.findAll()
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .map(pessoa ->
+                {
+                    PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                    p.setContatos(pessoa.getContatos());
+                    p.setPets(pessoa.getPets());
+                    p.setEnderecos(pessoa.getEnderecos());
+                    return p;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -93,4 +97,15 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
     }
+
+//    public List<PessoaDTO> listPessoaComEndereco(Integer idEPessoa) throws Exception {
+//        List<PessoaDTO> pessoaDTOS;
+//        if (getPessoa(idEPessoa) != null) {
+//            if(getPessoa(idEPessoa).getEnderecos().isEmpty()) {
+//                pessoaDTOS.add()
+//            }
+//        }
+//
+//    }
 }
+

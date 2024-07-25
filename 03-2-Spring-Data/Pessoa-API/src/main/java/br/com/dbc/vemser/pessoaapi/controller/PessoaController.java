@@ -4,7 +4,6 @@ import br.com.dbc.vemser.pessoaapi.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -83,5 +82,6 @@ public class PessoaController implements PessoaControllerDoc {
             @PathVariable("cpf") String cpf) {
         return new ResponseEntity<>(pessoaService.buscarPessoaCpf(cpf), HttpStatus.OK);
     }
+
 
 }

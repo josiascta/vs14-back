@@ -1,8 +1,11 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,4 +44,7 @@ public class Endereco {
     @Column(name = "pais")
     private String pais;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "enderecos")
+    private Set<Pessoa> pessoas = new HashSet<>();
 }

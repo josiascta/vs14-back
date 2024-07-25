@@ -28,4 +28,6 @@ public class PessoaCreateDTO {
     private String cpf;
 
     private String email;
+
+
 }

@@ -1,6 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.entity.Pet;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -41,4 +43,8 @@ public class PessoaDTO {
     private String email;
 
     private Set<Contato> contatos;
+
+    private Set<Pet> pets;
+
+    private Set<Endereco> enderecos;
 }
