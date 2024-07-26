@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ProfessorDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Professor;
 import br.com.dbc.vemser.pessoaapi.repository.ProfessorRepository;

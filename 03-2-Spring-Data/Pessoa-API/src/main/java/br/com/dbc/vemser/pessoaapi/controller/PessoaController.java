@@ -2,8 +2,10 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaComPetsDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCompletoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaPersonalizadoDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,24 +39,24 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping
-    public ResponseEntity<List<PessoaDTO>> list() {
+    public ResponseEntity<List<PessoaCompletoDTO>> list() {
         return new ResponseEntity<>(pessoaService.list(), HttpStatus.OK);
     }
 
     @GetMapping("/byname")
-    public List<PessoaDTO> listByName(@RequestParam(value = "nome") String nome) {
+    public List<PessoaCompletoDTO> listByName(@RequestParam(value = "nome") String nome) {
         return pessoaService.listByName(nome);
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {
+    public ResponseEntity<PessoaCompletoDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {
         log.info("Criando uma nova pessoa...");
         return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.OK);
     }
 
     @PutMapping("/{idPessoa}")
-    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
-                                            @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
+    public ResponseEntity<PessoaCompletoDTO> update(@PathVariable("idPessoa") Integer id,
+                                                    @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Editando uma pessoa...");
         return new ResponseEntity<>(pessoaService.update(id, pessoaAtualizar), HttpStatus.OK);
     }
@@ -67,7 +69,7 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping("/p")
-    public ResponseEntity<List<PessoaDTO>> buscarPessoasPorPeriodo(
+    public ResponseEntity<List<PessoaCompletoDTO>> buscarPessoasPorPeriodo(
             @RequestParam("dataInicial") String dataInicial,
             @RequestParam("dataFinal") String dataFinal) {
         LocalDate dataInicialLocalDate = LocalDate.parse(dataInicial);
@@ -78,23 +80,33 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<PessoaDTO> buscarPessoaPorCpf(
+    public ResponseEntity<PessoaCompletoDTO> buscarPessoaPorCpf(
             @PathVariable("cpf") String cpf) {
         return new ResponseEntity<>(pessoaService.buscarPessoaCpf(cpf), HttpStatus.OK);
     }
 
     @RequestMapping("/com-enderecos")
-    public ResponseEntity<List<PessoaDTO>> comEndereco(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+    public ResponseEntity<List<PessoaCompletoDTO>> pessoaComEndereco(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
         return new ResponseEntity<>(pessoaService.listPessoaComEndereco(id_pessoa), HttpStatus.OK);
     }
 
     @RequestMapping("/com-contatos")
-    public ResponseEntity<List<PessoaDTO>> comContatos(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+    public ResponseEntity<List<PessoaCompletoDTO>> pessoaComContatos(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
         return new ResponseEntity<>(pessoaService.listPessoaComContato(id_pessoa), HttpStatus.OK);
     }
 
     @RequestMapping("/com-pets")
-    public ResponseEntity<List<PessoaDTO>> comPets(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+    public ResponseEntity<List<PessoaComPetsDTO>> pessoaComPets(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
         return new ResponseEntity<>(pessoaService.listPessoaComPet(id_pessoa), HttpStatus.OK);
     }
+
+    @RequestMapping("/pessoa-completo")
+    public ResponseEntity<List<PessoaCompletoDTO>> pessoaCompleto(@RequestParam(name = "id_pessoa", required = false) Integer id_pessoa) throws Exception {
+        return new ResponseEntity<>(pessoaService.listPessoaCompleto(id_pessoa), HttpStatus.OK);
+    }
+
+//    @RequestMapping("/pessoa-personalizada")
+//    public ResponseEntity<List<PessoaPersonalizadoDTO>> pessoaCompleto() throws Exception {
+//        return new ResponseEntity<>(pessoaService.listPessoaPersonalizada(), HttpStatus.OK);
+//    }
 }

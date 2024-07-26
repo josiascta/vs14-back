@@ -1,7 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.documentation;
 
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCompletoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,7 +23,7 @@ public interface PessoaControllerDoc {
             }
     )
     @GetMapping // GET localhost:8080/pessoa
-    public ResponseEntity<List<PessoaDTO>> list();
+    public ResponseEntity<List<PessoaCompletoDTO>> list();
 
     @Operation(summary = "Cria a pessoa", description = "Cria uma nova pessoa")
     @ApiResponses(
@@ -34,7 +34,7 @@ public interface PessoaControllerDoc {
             }
     )
     @PostMapping // POST localhost:8080/pessoa
-    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception;
+    public ResponseEntity<PessoaCompletoDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception;
 
 
     @Operation(summary = "Atualiza dados da pessoa", description = "Atualiza dados da pessoa")
@@ -46,8 +46,8 @@ public interface PessoaControllerDoc {
             }
     )
     @PutMapping("/{idPessoa}") // PUT localhost:8080/pessoa/1000
-    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
-                                            @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception;
+    public ResponseEntity<PessoaCompletoDTO> update(@PathVariable("idPessoa") Integer id,
+                                                    @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception;
 
     @Operation(summary = "Deleta uma pessoa", description = "Deleta uma pessoa")
     @ApiResponses(

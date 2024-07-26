@@ -1,7 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCompletoDTO;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +66,7 @@ public class EmailService {
         emailSender.send(message);
     }
 
-    public void sendEmail(PessoaDTO pessoaDto) {
+    public void sendEmail(PessoaCompletoDTO pessoaCompletoDto) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -74,10 +74,10 @@ public class EmailService {
             String templatePessoaCriada = "email-template.ftl";
 
             mimeMessageHelper.setFrom(de);
-            para = pessoaDto.getEmail();
+            para = pessoaCompletoDto.getEmail();
             mimeMessageHelper.setTo(para);
             mimeMessageHelper.setSubject("Cadastro bem sucedido.");
-            mimeMessageHelper.setText(geContentFromTemplate(templatePessoaCriada, pessoaDto), true);
+            mimeMessageHelper.setText(geContentFromTemplate(templatePessoaCriada, pessoaCompletoDto), true);
 
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException | IOException | TemplateException e) {
@@ -85,7 +85,7 @@ public class EmailService {
         }
     }
 
-    public void sendEmail(PessoaDTO pessoaDto, EnderecoDTO enderecoDTO, String assunto,  String modificacao) {
+    public void sendEmail(PessoaCompletoDTO pessoaCompletoDto, EnderecoDTO enderecoDTO, String assunto, String modificacao) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -93,10 +93,10 @@ public class EmailService {
             String templateEmail = "email-template-post-endereco.ftl";
 
             mimeMessageHelper.setFrom(de);
-            para = pessoaDto.getEmail();
+            para = pessoaCompletoDto.getEmail();
             mimeMessageHelper.setTo(para);
             mimeMessageHelper.setSubject(assunto);
-            mimeMessageHelper.setText(geContentFromTemplate(templateEmail, enderecoDTO, pessoaDto, modificacao), true);
+            mimeMessageHelper.setText(geContentFromTemplate(templateEmail, enderecoDTO, pessoaCompletoDto, modificacao), true);
 
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException | IOException | TemplateException e) {
@@ -104,20 +104,20 @@ public class EmailService {
         }
     }
 
-    public String geContentFromTemplate(String s, PessoaDTO pessoaDTO) throws IOException, TemplateException {
+    public String geContentFromTemplate(String s, PessoaCompletoDTO pessoaCompletoDTO) throws IOException, TemplateException {
         Map<String, Object> dados = new HashMap<>();
         dados.put("email", de);
-        dados.put("nome", pessoaDTO.getNome());
-        dados.put("id", pessoaDTO.getIdPessoa());
+        dados.put("nome", pessoaCompletoDTO.getNome());
+        dados.put("id", pessoaCompletoDTO.getIdPessoa());
 
         Template template = fmConfiguration.getTemplate(s);
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
         return html;
     }
 
-    public String geContentFromTemplate(String s, EnderecoDTO enderecoDTO, PessoaDTO pessoaDTO, String modificacao) throws IOException, TemplateException {
+    public String geContentFromTemplate(String s, EnderecoDTO enderecoDTO, PessoaCompletoDTO pessoaCompletoDTO, String modificacao) throws IOException, TemplateException {
         Map<String, Object> dados = new HashMap<>();
-        dados.put("nome", pessoaDTO.getNome());
+        dados.put("nome", pessoaCompletoDTO.getNome());
         dados.put("modificacao", modificacao);
         dados.put("email", de);
         dados.put("id", enderecoDTO.getIdPessoa());

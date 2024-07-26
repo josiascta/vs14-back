@@ -3,7 +3,9 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.documentation.ContatoControllerDoc;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/contato")
 @Validated
@@ -20,15 +23,17 @@ import java.util.List;
 public class ContatoController implements ContatoControllerDoc {
 
     private final ContatoService contatoService;
-
-    public ContatoController(ContatoService contatoService) {
-        this.contatoService = contatoService;
-    }
+    private final ContatoRepository contatoRepository;
 
     @GetMapping
     public List<ContatoDTO> list() {
         return contatoService.list();
     }
+
+//    @GetMapping("tipoDeContato/{tipo}")
+//    public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id) throws Exception {
+//        return contatoService.listByPersonId(id);
+//    }
 
     @GetMapping("pessoa/{id}")
     public List<ContatoDTO> listByPersonId(@PathVariable(value = "id") Integer id) throws Exception {

@@ -19,9 +19,6 @@ public class Contato {
     @Column(name = "id_contato")
     private Integer idContato;
 
-//    @Column(name = "id_pessoa")
-//    private Integer idPessoa;
-
     @Column(name = "tipo")
     private TipoContato tipoContato;
 

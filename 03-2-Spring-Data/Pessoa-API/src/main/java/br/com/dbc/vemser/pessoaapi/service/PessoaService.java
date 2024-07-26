@@ -1,7 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.PessoaComPetsDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCompletoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaPersonalizadoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,33 +25,33 @@ public class PessoaService {
     private final ObjectMapper objectMapper;
     private final EmailService emailService;
 
-    public List<PessoaDTO> buscarPessoasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
+    public List<PessoaCompletoDTO> buscarPessoasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         return pessoaRepository.findByDataNascimentoBetween(dataInicial, dataFinal)
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaCompletoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public PessoaDTO buscarPessoaCpf(String cpf) {
-        return objectMapper.convertValue(pessoaRepository.findByCpf(cpf), PessoaDTO.class);
+    public PessoaCompletoDTO buscarPessoaCpf(String cpf) {
+        return objectMapper.convertValue(pessoaRepository.findByCpf(cpf), PessoaCompletoDTO.class);
     }
 
 
-    public PessoaDTO create(PessoaCreateDTO dto) throws Exception {
+    public PessoaCompletoDTO create(PessoaCreateDTO dto) throws Exception {
 
         Pessoa pessoaEntity = objectMapper.convertValue(dto, Pessoa.class);
         pessoaEntity = pessoaRepository.save(pessoaEntity);
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
-        emailService.sendEmail(pessoaDTO);
-        return pessoaDTO;
+        PessoaCompletoDTO pessoaCompletoDTO = objectMapper.convertValue(pessoaEntity, PessoaCompletoDTO.class);
+        emailService.sendEmail(pessoaCompletoDTO);
+        return pessoaCompletoDTO;
     }
 
-    public List<PessoaDTO> list() {
+    public List<PessoaCompletoDTO> list() {
         return pessoaRepository.findAll()
                 .stream()
                 .map(pessoa ->
                 {
-                    PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                    PessoaCompletoDTO p = objectMapper.convertValue(pessoa, PessoaCompletoDTO.class);
                     p.setContatos(pessoa.getContatos());
                     p.setPets(pessoa.getPets());
                     p.setEnderecos(pessoa.getEnderecos());
@@ -58,8 +61,8 @@ public class PessoaService {
     }
 
 
-    public PessoaDTO update(Integer id,
-                            PessoaCreateDTO pessoaAtualizar) throws Exception {
+    public PessoaCompletoDTO update(Integer id,
+                                    PessoaCreateDTO pessoaAtualizar) throws Exception {
 
         Pessoa pessoaEntity = getPessoa(id);
 
@@ -68,8 +71,8 @@ public class PessoaService {
         pessoaEntity.setCpf(pessoaAtualizar.getCpf());
         pessoaRepository.save(pessoaEntity);
 
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
-        return pessoaDTO;
+        PessoaCompletoDTO pessoaCompletoDTO = objectMapper.convertValue(pessoaEntity, PessoaCompletoDTO.class);
+        return pessoaCompletoDTO;
     }
 
     public void delete(Integer id) throws Exception {
@@ -77,21 +80,19 @@ public class PessoaService {
         pessoaRepository.delete(pessoaRecuperada);
     }
 
-    public List<PessoaDTO> listByName(String nome) {
+    public List<PessoaCompletoDTO> listByName(String nome) {
         return pessoaRepository.findAllByNomeContainsIgnoreCase(nome)
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaCompletoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public PessoaDTO findById(Integer id) throws Exception {
-        return objectMapper.convertValue(getPessoa(id), PessoaDTO.class);
+    public PessoaCompletoDTO findById(Integer id) throws Exception {
+        return objectMapper.convertValue(getPessoa(id), PessoaCompletoDTO.class);
     }
 
 
     private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
-
-
         Pessoa pessoaRecuperada = pessoaRepository.findAll().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
@@ -99,73 +100,94 @@ public class PessoaService {
         return pessoaRecuperada;
     }
 
-    public List<PessoaDTO> listPessoaComEndereco(Integer idEPessoa) throws Exception {
-        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+    public List<PessoaCompletoDTO> listPessoaComEndereco(Integer idEPessoa) throws Exception {
+        List<PessoaCompletoDTO> pessoaCompletoDTOS = new ArrayList<>();
         if(idEPessoa != null) {
-            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+            PessoaCompletoDTO pessoaRecuperada = findById(idEPessoa);
 
             if (pessoaRecuperada.getIdPessoa() != null) {
-                pessoaDTOS.add(pessoaRecuperada);
-                pessoaDTOS.get(0).setEnderecos(getPessoa(idEPessoa).getEnderecos());
+                pessoaCompletoDTOS.add(pessoaRecuperada);
+                pessoaCompletoDTOS.get(0).setEnderecos(getPessoa(idEPessoa).getEnderecos());
             }
         }else {
-            pessoaDTOS = pessoaRepository.findAll()
+            pessoaCompletoDTOS = pessoaRepository.findAll()
                     .stream()
                     .map(pessoa ->
                     {
-                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        PessoaCompletoDTO p = objectMapper.convertValue(pessoa, PessoaCompletoDTO.class);
                         p.setEnderecos(pessoa.getEnderecos());
                         return p;
                     })
                     .collect(Collectors.toList());
         }
-        return pessoaDTOS;
+        return pessoaCompletoDTOS;
     }
 
-    public List<PessoaDTO> listPessoaComContato(Integer idEPessoa) throws Exception {
-        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+    public List<PessoaCompletoDTO> listPessoaComContato(Integer idEPessoa) throws Exception {
+        List<PessoaCompletoDTO> pessoaCompletoDTOS = new ArrayList<>();
         if(idEPessoa != null) {
-            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+            PessoaCompletoDTO pessoaRecuperada = findById(idEPessoa);
 
             if (pessoaRecuperada.getIdPessoa() != null) {
-                pessoaDTOS.add(pessoaRecuperada);
-                pessoaDTOS.get(0).setContatos(getPessoa(idEPessoa).getContatos());
+                pessoaCompletoDTOS.add(pessoaRecuperada);
+                pessoaCompletoDTOS.get(0).setContatos(getPessoa(idEPessoa).getContatos());
             }
         }else {
-            pessoaDTOS = pessoaRepository.findAll()
+            pessoaCompletoDTOS = pessoaRepository.findAll()
                     .stream()
                     .map(pessoa ->
                     {
-                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        PessoaCompletoDTO p = objectMapper.convertValue(pessoa, PessoaCompletoDTO.class);
                         p.setContatos(pessoa.getContatos());
                         return p;
                     })
                     .collect(Collectors.toList());
         }
-        return pessoaDTOS;
+        return pessoaCompletoDTOS;
     }
 
-    public List<PessoaDTO> listPessoaComPet(Integer idEPessoa) throws Exception {
-        List<PessoaDTO> pessoaDTOS = new ArrayList<>();
+    //Versão da aula
+    public List<PessoaComPetsDTO> listPessoaComPet(Integer idEPessoa) throws Exception {
+        List<PessoaComPetsDTO> pessoaDTOS = new ArrayList<>();
         if(idEPessoa != null) {
-            PessoaDTO pessoaRecuperada = findById(idEPessoa);
+            Pessoa pessoaRecuperada = pessoaRepository.findByIdPessoaAndPetsNotNull(idEPessoa)
+                    .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
 
-            if (pessoaRecuperada.getIdPessoa() != null) {
-                pessoaDTOS.add(pessoaRecuperada);
-                pessoaDTOS.get(0).setPets(getPessoa(idEPessoa).getPets());
-            }
+            PessoaComPetsDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaComPetsDTO.class);
+            pessoaDTO.setPets(getPessoa(idEPessoa).getPets());
+            pessoaDTOS.add(pessoaDTO);
         }else {
-            pessoaDTOS = pessoaRepository.findAll()
+            pessoaDTOS = pessoaDTOS = pessoaRepository.findAllByPetsNotNull()
                     .stream()
                     .map(pessoa ->
                     {
-                        PessoaDTO p = objectMapper.convertValue(pessoa, PessoaDTO.class);
+                        PessoaComPetsDTO p = objectMapper.convertValue(pessoa, PessoaComPetsDTO.class);
                         p.setPets(pessoa.getPets());
                         return p;
                     })
                     .collect(Collectors.toList());
         }
         return pessoaDTOS;
+    }
+
+    public List<PessoaCompletoDTO> listPessoaCompleto(Integer idEPessoa) throws Exception {
+        List<PessoaCompletoDTO> pessoaDTOS = new ArrayList<>();
+        if(idEPessoa != null) {
+            Pessoa pessoaRecuperada = getPessoa(idEPessoa);
+
+            PessoaCompletoDTO pessoaCompletoDTO = objectMapper.convertValue(pessoaRecuperada, PessoaCompletoDTO.class);
+            pessoaCompletoDTO.setPets(getPessoa(idEPessoa).getPets());
+            pessoaCompletoDTO.setEnderecos(getPessoa(idEPessoa).getEnderecos());
+            pessoaCompletoDTO.setContatos(getPessoa(idEPessoa).getContatos());
+            pessoaDTOS.add(pessoaCompletoDTO);
+        }else {
+            pessoaDTOS = list();
+        }
+        return pessoaDTOS;
+    }
+
+    public List<PessoaPersonalizadoDTO> listPessoaPersonalizada() throws Exception {
+        return pessoaRepository.findAllPessoasPersonalizados();
     }
 }
 
