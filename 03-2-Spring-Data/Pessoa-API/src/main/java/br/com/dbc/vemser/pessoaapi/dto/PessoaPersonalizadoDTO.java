@@ -20,8 +20,11 @@ public class PessoaPersonalizadoDTO {
     private Integer idPessoa;
     private String nome;
     private String email;
-    private List<Contato> contatos;
-    private List<Endereco> enderecos;
-    private List<Pet> pets;
+    private String numero;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String pais;
+    private String nomePet;
 
 }

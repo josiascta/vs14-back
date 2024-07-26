@@ -105,8 +105,8 @@ public class PessoaController implements PessoaControllerDoc {
         return new ResponseEntity<>(pessoaService.listPessoaCompleto(id_pessoa), HttpStatus.OK);
     }
 
-//    @RequestMapping("/pessoa-personalizada")
-//    public ResponseEntity<List<PessoaPersonalizadoDTO>> pessoaCompleto() throws Exception {
-//        return new ResponseEntity<>(pessoaService.listPessoaPersonalizada(), HttpStatus.OK);
-//    }
+    @RequestMapping("/pessoa-personalizada")
+    public ResponseEntity<List<PessoaPersonalizadoDTO>> pessoaCompleto() throws Exception {
+        return new ResponseEntity<>(pessoaService.listPessoaPersonalizada(), HttpStatus.OK);
+    }
 }
