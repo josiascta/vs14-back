@@ -21,19 +21,6 @@ public class PetService {
     private final PessoaService pessoaService;
     private final ObjectMapper objectMapper;
 
-//    public PetDTO create(PetCreateDTO petCreateDTO, Integer idPessoa) throws Exception {
-//        Pessoa pessoa = objectMapper.convertValue( pessoaService.findById(idPessoa), Pessoa.class);
-//
-//        if(pessoa == null) {
-//            throw new RegraDeNegocioException("Não existe pessoa com id: " + idPessoa);
-//        }
-//        Pet petEntity = objectMapper.convertValue(petCreateDTO, Pet.class);
-//        petEntity.setPessoa(pessoa);
-//        petEntity = petRepository.save(petEntity);
-//        PetDTO petDTO = objectMapper.convertValue(petEntity, PetDTO.class);
-//        return petDTO;
-//    }
-
     public PetDTO create(PetCreateDTO dto) throws Exception {
 
         Pet petEntity = objectMapper.convertValue(dto, Pet.class);

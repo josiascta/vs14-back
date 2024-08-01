@@ -43,7 +43,7 @@ public class EnderecoController implements EnderecoControllerDoc {
     public ResponseEntity<EnderecoDTO> create(@PathVariable("id") Integer id,
                                          @Valid @RequestBody EnderecoCreateDTO endereco) throws Exception {
         log.info("Criando um novo endereço...");
-        return new ResponseEntity<>(enderecoService.create(endereco), HttpStatus.OK);
+        return new ResponseEntity<>(enderecoService.create(endereco, id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")

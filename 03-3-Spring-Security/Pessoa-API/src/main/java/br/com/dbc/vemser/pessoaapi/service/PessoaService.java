@@ -8,6 +8,7 @@ import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +91,6 @@ public class PessoaService {
     public PessoaCompletoDTO findById(Integer id) throws Exception {
         return objectMapper.convertValue(getPessoa(id), PessoaCompletoDTO.class);
     }
-
 
     private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = pessoaRepository.findAll().stream()

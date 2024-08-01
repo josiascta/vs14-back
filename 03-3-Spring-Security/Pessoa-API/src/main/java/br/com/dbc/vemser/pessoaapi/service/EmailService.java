@@ -120,7 +120,7 @@ public class EmailService {
         dados.put("nome", pessoaCompletoDTO.getNome());
         dados.put("modificacao", modificacao);
         dados.put("email", de);
-        dados.put("id", enderecoDTO.getIdPessoa());
+//        dados.put("id", enderecoDTO.getIdPessoa());
         dados.put("logradouro", enderecoDTO.getLogradouro());
         dados.put("numero", enderecoDTO.getNumero());
         dados.put("complemento", enderecoDTO.getComplemento());

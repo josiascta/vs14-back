@@ -3,8 +3,10 @@ package br.com.dbc.vemser.pessoaapi.service;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCompletoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
@@ -47,13 +49,16 @@ public class EnderecoService {
 //                .collect(Collectors.toList());
 //    }
 
-    public EnderecoDTO create(EnderecoCreateDTO endereco) throws Exception {
-//        PessoaDTO pessoa = pessoaService.findById(id);
-//        if (pessoa == null) {
-//            throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
-//        }
+    public EnderecoDTO create(EnderecoCreateDTO endereco, int id) throws Exception {
+        Pessoa pessoa = objectMapper.convertValue( pessoaService.findById(id), Pessoa.class);
+
+        if (pessoa == null) {
+            throw new RegraDeNegocioException("Não existe pessoa com id: " + id);
+        }
+
         Endereco enderecoEntity = objectMapper.convertValue(endereco, Endereco.class);
 
+        enderecoEntity.getPessoas().add(pessoa);
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);

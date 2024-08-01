@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +30,12 @@ public class SecurityConfiguration {
                 .and().csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/auth", "/").permitAll()
-                        .anyRequest().authenticated()
+                        .antMatchers(HttpMethod.POST, "/auth/cadastrar").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.GET, "/pessoa/**", "/contato/**", "/endereco/**", "/pet/**").hasRole("MARKETING")
+                                .antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("ADMIN", "USUARIO")
+                                .antMatchers("/**").hasRole("ADMIN")
+                        .anyRequest().denyAll()
+//                        .anyRequest().authenticated()
                 );
         http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 

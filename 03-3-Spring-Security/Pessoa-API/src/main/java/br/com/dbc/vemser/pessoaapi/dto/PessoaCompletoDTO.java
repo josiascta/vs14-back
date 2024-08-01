@@ -49,4 +49,6 @@ public class PessoaCompletoDTO {
     private Set<Pet> pets;
 
     private Set<Endereco> enderecos;
+
+
 }
