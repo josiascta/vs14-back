@@ -30,9 +30,9 @@ public class SecurityConfiguration {
                 .and().csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/auth", "/").permitAll()
-                        .antMatchers(HttpMethod.POST, "/auth/cadastrar").hasRole("ADMIN")
+//                        .antMatchers(HttpMethod.POST, "/auth/cadastrar").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/pessoa/**", "/contato/**", "/endereco/**", "/pet/**").hasRole("MARKETING")
-                                .antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("ADMIN", "USUARIO")
+                                .antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("USUARIO") //<---- Tirei ADmin para teste
                                 .antMatchers("/**").hasRole("ADMIN")
                         .anyRequest().denyAll()
 //                        .anyRequest().authenticated()
