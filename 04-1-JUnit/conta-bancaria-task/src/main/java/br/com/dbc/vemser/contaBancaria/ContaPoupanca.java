@@ -1,10 +1,10 @@
 package br.com.dbc.vemser.contaBancaria;
 
 public class ContaPoupanca extends Conta implements Impressao {
-    private static final double TAXA_MENSAL = 1.01; //1%
+    private static final double TAXA_MENSAL = 0.01; //1%
 
     public void creditarTaxa() {
-        this.setSaldo(getSaldo() * TAXA_MENSAL);
+        this.setSaldo(getSaldo() - (getSaldo() * TAXA_MENSAL));
     }
 
     @Override

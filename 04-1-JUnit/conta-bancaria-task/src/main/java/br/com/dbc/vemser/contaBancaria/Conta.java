@@ -1,5 +1,8 @@
 package br.com.dbc.vemser.contaBancaria;
 
+import br.com.dbc.vemser.contaBancaria.exception.ValorDeDepositoInvalidoException;
+import br.com.dbc.vemser.contaBancaria.exception.ValorDeSaqueInvalidoException;
+
 public abstract class Conta implements Movimentacao {
     private Cliente cliente;
     private String numeroConta;
@@ -7,7 +10,7 @@ public abstract class Conta implements Movimentacao {
     private double saldo;
 
     @Override
-    public boolean transferir(Conta conta, double valor) {
+    public boolean transferir(Conta conta, double valor) throws ValorDeSaqueInvalidoException, ValorDeDepositoInvalidoException {
         boolean conseguiuSacar = sacar(valor);
         boolean conseguiuDepositar = false;
         if (conseguiuSacar) {
@@ -17,10 +20,10 @@ public abstract class Conta implements Movimentacao {
     }
 
     @Override
-    public boolean depositar(double valor) {
-        if (valor <= 0) {
-            System.err.println("não é possível depositar valor negativo ou zero");
-            return false;
+    public boolean depositar(double valor) throws ValorDeDepositoInvalidoException {
+        if (valor <= 0 || valor > saldo) {
+            throw new ValorDeDepositoInvalidoException("Não é possível depositar valor negativo ou zero");
+
         } else {
             saldo -= valor;
         }
@@ -28,13 +31,11 @@ public abstract class Conta implements Movimentacao {
     }
 
     @Override
-    public boolean sacar(double valor) {
-        if (valor <= 100) {
-            System.err.println("Não é possível realizar saque de zero reais.");
-            return false;
+    public boolean sacar(double valor) throws ValorDeSaqueInvalidoException {
+        if (valor <= 0) {
+            throw new ValorDeSaqueInvalidoException("Não é possível realizar saque de zero reais.");
         } else if (valor > saldo) {
-            System.err.println("Saldo e cheque especial insuficientes para realizar o saque.");
-            return false;
+            throw new ValorDeSaqueInvalidoException("Saldo e cheque especial insuficientes para realizar o saque.");
         } else {
             setSaldo(getSaldo() - valor);
         }

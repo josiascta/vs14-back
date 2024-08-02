@@ -1,16 +1,16 @@
 package br.com.dbc.vemser.contaBancaria;
 
+import br.com.dbc.vemser.contaBancaria.exception.ValorDeSaqueInvalidoException;
+
 public class ContaCorrente extends Conta implements Impressao {
     private double chequeEspecial;
 
     @Override
-    public boolean sacar(double valor) {
+    public boolean sacar(double valor) throws ValorDeSaqueInvalidoException {
         if (valor <= 0) {
-            System.err.println("Não é possível realizar saque de zero reais.");
-            return false;
+            throw new ValorDeSaqueInvalidoException("Não é possível realizar saque de zero reais.");
         } else if (valor > (super.getSaldo() + chequeEspecial)) {
-            System.err.println("Saldo e cheque especial insuficientes para realizar o saque.");
-            return false;
+            throw new ValorDeSaqueInvalidoException("Saldo e cheque especial insuficientes para realizar o saque.");
         } else {
             setSaldo(getSaldo() - valor);
         }
