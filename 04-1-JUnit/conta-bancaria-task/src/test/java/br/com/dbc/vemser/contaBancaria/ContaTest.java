@@ -108,7 +108,7 @@ class ContaTest {
     }
 
     @Test
-    void deveTestarTransferenciaEntreContasComSucesso() throws ValorDeSaqueInvalidoException, ValorDeDepositoInvalidoException {
+    void deveTestarTransferenciaEntreContasComSucessoEVerificarSaldoComSucesso() throws ValorDeSaqueInvalidoException, ValorDeDepositoInvalidoException {
         contaCorrente.setSaldo(1000);
         contaPoupanca.setSaldo(500);
 

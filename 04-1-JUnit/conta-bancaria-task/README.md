@@ -72,3 +72,13 @@
 🟡Quando: eu tento depositar um valor inválido (por exemplo, -R$ 50)  
 🟢Então: uma exceção `ValorDeDepositoInvalidoException` deve ser lançada
 ```
+
+#### Cenário 10: Transferência bem-sucedida entre contas e verificação dos saldos
+
+```diff
+🔴Dado: que a conta corrente possui um saldo de R$ 1000
+🔴E: que a conta poupança possui um saldo de R$ 500
+🟡Quando: eu transfiro R$ 200 da conta corrente para a conta poupança
+🟢Então: a transferência deve ser bem-sucedida
+🟢E: o saldo da conta corrente deve ser R$ 800
+🟢E: o saldo da conta poupança deve ser R$ 700
