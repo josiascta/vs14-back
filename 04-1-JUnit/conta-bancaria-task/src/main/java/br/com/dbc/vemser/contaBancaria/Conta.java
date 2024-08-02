@@ -21,11 +21,11 @@ public abstract class Conta implements Movimentacao {
 
     @Override
     public boolean depositar(double valor) throws ValorDeDepositoInvalidoException {
-        if (valor <= 0 || valor > saldo) {
+        if (valor <= 0) {
             throw new ValorDeDepositoInvalidoException("Não é possível depositar valor negativo ou zero");
 
         } else {
-            saldo -= valor;
+            saldo += valor;
         }
         return true;
     }

@@ -39,8 +39,6 @@ class ContaTest {
         assertThrows(ValorDeSaqueInvalidoException.class, () -> contaCorrente.sacar(saque));
     }
 
-    //Testar valor > (super.getSaldo() + chequeEspecial)
-
     @Test
     void deveTestarSaqueContaPoupancaEVerificarSaldoComSucesso() throws ValorDeSaqueInvalidoException {
         contaPoupanca.setSaldo(1000);
@@ -82,5 +80,42 @@ class ContaTest {
         assertEquals(500, contaCorrente.getSaldo());
     }
 
-    //+4
+    @Test
+    void deveTestarTransferenciaSemSaldoSuficiente() {
+        contaCorrente.setSaldo(100);
+
+        assertThrows(ValorDeSaqueInvalidoException.class, () -> {
+            contaCorrente.transferir(contaPoupanca, 200);
+        });
+    }
+
+    @Test
+    void deveTestarDepositoComSucesso() throws ValorDeDepositoInvalidoException {
+        contaCorrente.setSaldo(100);
+
+        contaCorrente.depositar(200);
+
+        assertEquals(300, contaCorrente.getSaldo());
+    }
+
+    @Test
+    void deveTestarDepositoInvalido() {
+        contaCorrente.setSaldo(100);
+
+        assertThrows(ValorDeDepositoInvalidoException.class, () -> {
+            contaCorrente.depositar(-50);
+        });
+    }
+
+    @Test
+    void deveTestarTransferenciaEntreContasComSucesso() throws ValorDeSaqueInvalidoException, ValorDeDepositoInvalidoException {
+        contaCorrente.setSaldo(1000);
+        contaPoupanca.setSaldo(500);
+
+        boolean sucesso = contaCorrente.transferir(contaPoupanca, 200);
+
+        assertTrue(sucesso);
+        assertEquals(800, contaCorrente.getSaldo());
+        assertEquals(700, contaPoupanca.getSaldo());
+    }
 }
