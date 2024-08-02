@@ -72,10 +72,10 @@ class ContaTest {
     }
 
     @Test
-    void deveTestarTransferenciaEVerificarSaldoComSucesso() throws ValorDeDepositoInvalidoException {
+    void deveTestarTransferenciaEVerificarSaldoComSucesso() throws ValorDeDepositoInvalidoException, ValorDeSaqueInvalidoException {
         contaCorrente.setSaldo(1000);
 
-        contaCorrente.depositar(500);
+        contaCorrente.transferir(new ContaCorrente(),500);
 
         assertEquals(500, contaCorrente.getSaldo());
     }
