@@ -4,6 +4,7 @@ public class Cliente {
     private String nome;
     private String cpf;
 
+    //teste
     public void imprimirCliente() {
         System.out.println(this);
     }
