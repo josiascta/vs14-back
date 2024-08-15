@@ -93,10 +93,35 @@
         </section>
 
         <hr>
-        
+
         <section>
             <h3>Questão 6</h3>
             <p>Calculadora 2</p>
+            <div class="calculadora-container">
+                <div class="reader">
+                    <p id="resultado2">0</p>
+                </div>
+        
+                <button id="clear" onclick="clean()">C</button>
+                <button id="back" onclick="back()">🠔</button>
+                <button id="divisao" onclick="insert('/')">/</button>
+                <button id="multiplicacao" onclick="insert('*')">*</button>
+                <button class="num" onclick="insert('7')">7</button>
+                <button class="num" onclick="insert('8')">8</button>
+                <button class="num" onclick="insert('9')">9</button>
+                <button id="subtracao" onclick="insert('-')">-</button>
+                <button class="num" onclick="insert('4')">4</button>
+                <button class="num" onclick="insert('5')">5</button>
+                <button class="num" onclick="insert('6')">6</button>
+                <button id="adicao" onclick="insert('+')">+</button>
+                <button class="num" onclick="insert('1')">1</button>
+                <button class="num" onclick="insert('2')">2</button>
+                <button class="num" onclick="insert('3')">3</button>
+                <button class="igual" onclick="calcular2()">=</button>
+                <button class="num zero" onclick="insert('0')">0</button>
+                <button id="ponto" onclick="insert('.')">.</button>
+                
+            </div>
         </section>
 
         <script src="./js/script.js"></script>    

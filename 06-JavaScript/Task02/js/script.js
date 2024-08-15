@@ -94,3 +94,41 @@ function calcular() {
 
 }
 
+//06 - Calculadora II
+
+
+function insert(value) {
+    let resultado = document.getElementById('resultado2');
+    if (resultado.innerText === '0') {
+        resultado.innerText = value;
+    } else {
+        resultado.innerText += value;
+    }
+}
+
+function clean() {
+    document.getElementById('resultado2').innerText = '0';
+}
+
+function back() {
+    let resultado = document.getElementById('resultado2').innerText;
+    if (resultado.length > 1) {
+        document.getElementById('resultado2').innerText = resultado.slice(0, -1);
+    } else {
+        document.getElementById('resultado2').innerText = '0';
+    }
+}
+
+function calcular2() {
+    let resultado = document.getElementById('resultado2').innerText;
+
+    resultado = eval(resultado); 
+    document.getElementById('resultado2').innerText = resultado;
+}
+
+
+
+
+
+
+
